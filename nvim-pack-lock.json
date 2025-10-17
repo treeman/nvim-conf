@@ -1,0 +1,44 @@
+{
+  "plugins": {
+    "conform.nvim": {
+      "rev": "fbcb4fa",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "fennel": {
+      "rev": "7b2192e",
+      "src": "https://git.sr.ht/~technomancy/fennel"
+    },
+    "fnlfmt": {
+      "rev": "35b1622",
+      "src": "https://git.sr.ht/~technomancy/fnlfmt"
+    },
+    "lze": {
+      "rev": "e1c5eab",
+      "src": "https://github.com/BirdeeHub/lze"
+    },
+    "melange-nvim": {
+      "rev": "ce42f6b",
+      "src": "https://github.com/savq/melange-nvim"
+    },
+    "nvim-laurel": {
+      "rev": "b197317",
+      "src": "https://github.com/aileot/nvim-laurel"
+    },
+    "nvim-thyme": {
+      "rev": "99400a5",
+      "src": "https://github.com/aileot/nvim-thyme"
+    },
+    "parinfer-rust": {
+      "rev": "f519995",
+      "src": "https://github.com/eraserhd/parinfer-rust"
+    },
+    "rtp.nvim": {
+      "rev": "494ddfc",
+      "src": "https://github.com/lumen-oss/rtp.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "454ba02",
+      "src": "https://github.com/folke/snacks.nvim"
+    }
+  }
+}
