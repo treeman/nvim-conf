@@ -16,6 +16,14 @@
       "rev": "e1c5eab",
       "src": "https://github.com/BirdeeHub/lze"
     },
+    "mason-lspconfig.nvim": {
+      "rev": "6bdb14f",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
+    "mason.nvim": {
+      "rev": "ad7146a",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
     "melange-nvim": {
       "rev": "ce42f6b",
       "src": "https://github.com/savq/melange-nvim"
@@ -24,9 +32,18 @@
       "rev": "b197317",
       "src": "https://github.com/aileot/nvim-laurel"
     },
+    "nvim-lspconfig": {
+      "rev": "ac98db2",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
     "nvim-thyme": {
       "rev": "99400a5",
       "src": "https://github.com/aileot/nvim-thyme"
+    },
+    "nvim-treesitter": {
+      "rev": "63fac0a5",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'main'"
     },
     "parinfer-rust": {
       "rev": "f519995",

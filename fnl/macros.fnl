@@ -45,9 +45,9 @@
                                        (lze#.load spec#))
                                :confirm false}))
 
-(fn augroup+ [...]
-  "Define augroup without clearing it."
-  (augroup! `&default-opts {:clear false} ...))
+; Annoying to pass :buffer params, this is a shortcut.
+(fn bmap! [...]
+  (map! `&default-opts {:buffer 0} ...))
 
 {: let!
  : g!
@@ -57,11 +57,12 @@
  : v!
  : env!
  : map!
+ : bmap!
  : unmap!
  : <C-u>
  : <Cmd>
  : command!
- :augroup! augroup+
+ : augroup!
  : au!
  : autocmd!
  : feedkeys!
