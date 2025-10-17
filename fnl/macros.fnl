@@ -17,7 +17,8 @@
         : autocmd!
         : feedkeys!
         : set!
-        : highlight!} (require :laurel.macros))
+        : highlight!
+        : hi!} (require :laurel.macros))
 
 (fn dbg! [& args]
   `(print (vim.inspect ,args)))
@@ -68,5 +69,6 @@
  : feedkeys!
  : set!
  : highlight!
+ : hi!
  : pack!
  : dbg!}
