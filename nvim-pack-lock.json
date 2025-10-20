@@ -8,16 +8,20 @@
       "rev": "7b2192e",
       "src": "https://git.sr.ht/~technomancy/fennel"
     },
-    "fnlfmt": {
-      "rev": "35b1622",
-      "src": "https://git.sr.ht/~technomancy/fnlfmt"
+    "fyler.nvim": {
+      "rev": "f19870c",
+      "src": "https://github.com/A7Lavinraj/fyler.nvim"
+    },
+    "lualine.nvim": {
+      "rev": "3946f01",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "lze": {
       "rev": "e1c5eab",
       "src": "https://github.com/BirdeeHub/lze"
     },
     "mason-lspconfig.nvim": {
-      "rev": "6bdb14f",
+      "rev": "2304ff6",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -37,25 +41,49 @@
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-thyme": {
-      "rev": "99400a5",
+      "rev": "1ce4edb",
       "src": "https://github.com/aileot/nvim-thyme"
     },
     "nvim-treesitter": {
-      "rev": "63fac0a5",
+      "rev": "846d5113",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
+    },
+    "nvim-web-devicons": {
+      "rev": "b8221e4",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "parinfer-rust": {
       "rev": "f519995",
       "src": "https://github.com/eraserhd/parinfer-rust"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "popup.nvim": {
+      "rev": "b7404d3",
+      "src": "https://github.com/nvim-lua/popup.nvim"
     },
     "rtp.nvim": {
       "rev": "494ddfc",
       "src": "https://github.com/lumen-oss/rtp.nvim"
     },
     "snacks.nvim": {
-      "rev": "454ba02",
+      "rev": "b59ef39",
       "src": "https://github.com/folke/snacks.nvim"
+    },
+    "telescope-fzf-native.nvim": {
+      "rev": "1f08ed6",
+      "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "b4da76b",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "tiny-devicons-auto-colors.nvim": {
+      "rev": "51f5484",
+      "src": "https://github.com/rachartier/tiny-devicons-auto-colors.nvim"
     }
   }
 }

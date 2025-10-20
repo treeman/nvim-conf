@@ -1,9 +1,5 @@
 (require-macros :macros)
 
-(pack! "https://github.com/stevearc/conform.nvim")
-; TODO doesn't call make automatically!
-; (pack! "https://git.sr.ht/~technomancy/fnlfmt")
-
 (local conform (require :conform))
 (conform.setup {:formatters_by_ft {:fennel ["fnlfmt"]
                                    :lua ["stylua"]

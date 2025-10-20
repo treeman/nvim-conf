@@ -11,9 +11,6 @@ vim.pack.add({
 	-- Enables lazy loading of plugins.
 	"https://github.com/BirdeeHub/lze",
 	-- Sources `plugin` and `ftdetect` directories when lazy loading.
-	"https://github.com/lumen-oss/rtp.nvim",
-	-- TODO need to go in and run `cargo build --release`!
-	"https://github.com/eraserhd/parinfer-rust",
 }, { confirm = false })
 
 -- Override package loading so thyme can hook into `require` calls and generate lua code

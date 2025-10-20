@@ -1,13 +1,5 @@
 (require-macros :macros)
 
-(pack! "https://github.com/nvim-treesitter/nvim-treesitter" :version :main)
-
-; Could use this too:
-; https://github.com/mks-h/treesitter-autoinstall.nvim
-
-; TODO :TSUpdate when updated or installed
-; See PackChanged
-
 (local nvim-treesitter (require :nvim-treesitter))
 
 ; Ignore auto install for these filetypes:

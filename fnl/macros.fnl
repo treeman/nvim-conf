@@ -24,22 +24,24 @@
   `(print (vim.inspect ,args)))
 
 (fn pack! [spec1 & args]
-  "Call vim.pack.add via lze" ; Convert the args list into a table.
+  "Call vim.pack.add via lze"
+  ;; Convert the args list into a table.
   (local opts (let [t {}]
                 (each [k v (ipairs args)]
                   (when (= (% k 2) 1)
                     (tset t v (. args (+ k 1)))))
-                t)) ; Split args into data arguments and standard arguments for vim.pack. ; vim.pack.add has `src` `name` and `version`. Other keys can be sent through `data`.
+                t))
+  ;; Split args into data arguments and standard arguments for vim.pack.
+  ;; vim.pack.add has `src` `name` and `version`. Other keys can be sent through `data`.
   (local pack_args {:src spec1})
   (local data_args {})
-  (each [k v (pairs opts)] ; Would be nice to simplify this to a "exist in list" check.
+  (each [k v (pairs opts)]
+    ;; Would be nice to simplify this to a "exist in list" check. (there is one!)
     (if (or (= k :src) (= k :name) (= k :version))
         (tset pack_args k v)
         (tset data_args k v)))
   (set pack_args.data data_args)
-  `(vim.pack.add [,pack_args] {; Overrides load and passes to lze, which uses `data` to configure
-                               ; loading properties.
-                               :load (fn [p#]
+  `(vim.pack.add [,pack_args] {:load (fn [p#]
                                        (local spec# (or p#.spec.data {}))
                                        (set spec#.name p#.spec.name)
                                        (local lze# (require :lze))
@@ -50,7 +52,19 @@
 (fn bmap! [...]
   (map! `&default-opts {:buffer 0} ...))
 
-{: let!
+(fn tx! [& args]
+  "Mixed sequential and associative tables at compile time. Because the Neovim ecosystem loves them but Fennel has no neat way to express them (which I think is fine, I don't like the idea of them in general)."
+  (let [to-merge (when (table? (. args (length args)))
+                   (table.remove args))]
+    (if to-merge
+        (do
+          (each [key value (pairs to-merge)]
+            (tset args key value))
+          args)
+        args)))
+
+{: tx!
+ : let!
  : g!
  : b!
  : w!

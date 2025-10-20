@@ -99,5 +99,6 @@
            ;; - "clear-all": clear all the Lua caches by nvim-thyme
            ;; - "clear": clear the cache of the module and its dependencies
            ;; - "recompile": recompile the module and its dependencies
-           :strategy "recompile"
+           ; :strategy "recompile"
+           :strategy "clear-all"
            :macro-strategy "clear-all"}})

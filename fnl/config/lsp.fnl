@@ -1,20 +1,36 @@
 (require-macros :macros)
 
-; Use mason to easily install LSP servers and other tools.
-(pack! "https://github.com/mason-org/mason.nvim" :after
-       (λ []
-         (local pkg (require :mason))
-         (pkg.setup)))
+(local mason (require :mason))
+(mason.setup)
 
-; Provides ready made configurations for many LSPs.
-(pack! "https://github.com/neovim/nvim-lspconfig")
+(local mason-lspconfig (require :mason-lspconfig))
+(mason-lspconfig.setup {:automatic_enable true
+                        ;; Not sure if I want this to be honest, but let it be here for now...
+                        :ensure_installed ["lua_ls"
+                                           "clangd"
+                                           "clangd"
+                                           "cssls"
+                                           "docker_compose_language_service"
+                                           "dockerls"
+                                           "dotls"
+                                           "emmet_ls"
+                                           "fish-lsp"
+                                           "eslint"
+                                           "html"
+                                           "html"
+                                           "jsonls"
+                                           "marksman"
+                                           "pylsp"
+                                           "fennel-ls"
+                                           "rust_analyzer"
+                                           "vimls"
+                                           "yamlls"]})
 
-; Manages LSPs installed via Mason and enables them automatically.
-; Note that we need to enable other LSPs manually with `vim.lsp.enable`.
-(pack! "https://github.com/mason-org/mason-lspconfig.nvim" :after
-       (λ []
-         (local pkg (require :mason-lspconfig))
-         (pkg.setup)))
+;; Maybe we do something smarter for rust_analayzer?
+; :automatic_enable {
+;                     :exclude {}
+;                             "rust_analyzer"
+;                             "jdtls"}})
 
 (vim.diagnostic.config {:virtual_text false
                         :severity_sort true
@@ -22,7 +38,7 @@
 
 (vim.lsp.inlay_hint.enable true)
 
-; We don't want objective-c and objective-cpp
+;; We don't want objective-c and objective-cpp
 (vim.lsp.config "clangd" {:filetypes {"c" "cpp"}})
 
 (vim.lsp.config "expert"
@@ -30,15 +46,17 @@
                  :root_markers ["mix.exs" ".git"]
                  :filetypes ["elixir" "eelixir" "heex"]})
 
-; TODO
-; You can use nvim_get_runtime_files() to get all Lua files under lsp/ directory in all of your 'runtimepath', then trim the .lua extension, and feed them to vim.lsp.enable()
-; Then we can skip mason-lspconfig and simply rely on :Mason to install LSPs
 (vim.lsp.enable "expert")
+
+;; These are default bindings in Neovim but they don't open the diagnostic floats immediately.
+;; Calling them manually does though...
+(map! "n" "]d" vim.diagnostic.goto_next {:silent true :desc "Next diagnostic"})
+(map! "n" "[d" vim.diagnostic.goto_prev {:silent true :desc "Prev diagnostic"})
 
 ; NOTE there are other cool possibilities listed in nvim-lspconfig
 (augroup! :my-lsps
           (au! :LspAttach
-               (λ [args]
+               (λ [_]
                  (bmap! :n "<localleader>D" vim.lsp.buf.declaration
                         {:silent true :desc "Declaration"})
                  (bmap! :n "<localleader>d" vim.lsp.buf.definition
