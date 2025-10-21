@@ -1,11 +1,15 @@
 {
   "plugins": {
     "conform.nvim": {
-      "rev": "fbcb4fa",
+      "rev": "235dd79",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "dial.nvim": {
+      "rev": "f0404ec",
+      "src": "https://github.com/monaqa/dial.nvim"
+    },
     "fennel": {
-      "rev": "7b2192e",
+      "rev": "b73cceb",
       "src": "https://git.sr.ht/~technomancy/fennel"
     },
     "fyler.nvim": {
@@ -17,7 +21,7 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "lze": {
-      "rev": "e1c5eab",
+      "rev": "3c8a768",
       "src": "https://github.com/BirdeeHub/lze"
     },
     "mason-lspconfig.nvim": {
@@ -37,15 +41,15 @@
       "src": "https://github.com/aileot/nvim-laurel"
     },
     "nvim-lspconfig": {
-      "rev": "ac98db2",
+      "rev": "e5c61b0",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-thyme": {
-      "rev": "1ce4edb",
+      "rev": "7882323",
       "src": "https://github.com/aileot/nvim-thyme"
     },
     "nvim-treesitter": {
-      "rev": "846d5113",
+      "rev": "71bf1665",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -70,7 +74,7 @@
       "src": "https://github.com/lumen-oss/rtp.nvim"
     },
     "snacks.nvim": {
-      "rev": "b59ef39",
+      "rev": "58448e0",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "telescope-fzf-native.nvim": {
@@ -84,6 +88,14 @@
     "tiny-devicons-auto-colors.nvim": {
       "rev": "51f5484",
       "src": "https://github.com/rachartier/tiny-devicons-auto-colors.nvim"
+    },
+    "tiny-glimmer.nvim": {
+      "rev": "84f6b0d",
+      "src": "https://github.com/rachartier/tiny-glimmer.nvim"
+    },
+    "vim-cool": {
+      "rev": "9ea940c",
+      "src": "https://github.com/romainl/vim-cool"
     }
   }
 }

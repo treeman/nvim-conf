@@ -10,7 +10,6 @@ vim.pack.add({
 	"https://github.com/aileot/nvim-laurel",
 	-- Enables lazy loading of plugins.
 	"https://github.com/BirdeeHub/lze",
-	-- Sources `plugin` and `ftdetect` directories when lazy loading.
 }, { confirm = false })
 
 -- Override package loading so thyme can hook into `require` calls and generate lua code

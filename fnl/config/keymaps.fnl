@@ -76,18 +76,34 @@
 (map! "n" "<leader>f" #(: (require :telescope.builtin) :find_files)
       {:silent true :desc "Find files"})
 
-(map! "n" "<leader>F" #(: (require :telescope.builtin) :find_files {:cwd (vim.fn.expand "%:p:h")})
+; (map! "n" "<leader>F" #(: (require :telescope.builtin) :find_files
+;                           {:cwd (vim.fn.expand "%:p:h")})
+;       {:silent true :desc "Find files"})
+(map! "n" "<leader>F"
+      (λ []
+        (local builtin (require :telescope.builtin))
+        (builtin.find_files {:cwd (vim.fn.expand "%:p:h")}))
       {:silent true :desc "Find files"})
 
 (map! "n" "<leader>ec"
-      #(: (require :telescope.builtin) :find_files {:cwd (vim.fn.stdpath "config")})
+      #(: (require :telescope.builtin) :find_files
+          {:cwd (vim.fn.stdpath "config")})
       {:silent true :desc "Find files"})
 
-(map! "n" "<leader>b" #(: (require :telescope.builtin) :buffers) {:silent true :desc "Buffers"})
-(map! "n" "<leader>o" #(: (require :telescope.builtin) :oldfiles) {:silent true :desc "Old files"})
-(map! "n" "gb" #(: (require :telescope.builtin) :git_branches) {:silent true :desc "Git branches"})
-(map! "n" "z=" #(: (require :telescope.builtin) :spell_suggest) {:silent true :desc "Spell suggest"})
-(map! "n" "<leader>hh" #(: (require :telescope.builtin) :help_tags) {:silent true :desc "Help tags"})
+(map! "n" "<leader>b" #(: (require :telescope.builtin) :buffers)
+      {:silent true :desc "Buffers"})
+
+(map! "n" "<leader>o" #(: (require :telescope.builtin) :oldfiles)
+      {:silent true :desc "Old files"})
+
+(map! "n" "gb" #(: (require :telescope.builtin) :git_branches)
+      {:silent true :desc "Git branches"})
+
+(map! "n" "z=" #(: (require :telescope.builtin) :spell_suggest)
+      {:silent true :desc "Spell suggest"})
+
+(map! "n" "<leader>hh" #(: (require :telescope.builtin) :help_tags)
+      {:silent true :desc "Help tags"})
 
 ;; Telescoping into a personal knowledge base is really pleasant,
 (λ find_org_file [base_folder]
@@ -120,6 +136,19 @@
 (map! "n" "<leader>ep" #(find_org_file "projects") {:desc "Org projects"})
 (map! "n" "<leader>en" #(find_org_file "notes") {:desc "Org notes"})
 (map! "n" "<leader>eA" #(find_org_file "archive") {:desc "Org archive"})
+
+(λ dial [dir sel]
+  (local dial (require :dial.map))
+  (dial.manipulate dir sel))
+
+(map! "n" "<C-a>" #(dial "increment" "normal"))
+(map! "n" "<C-x>" #(dial "decrement" "normal"))
+(map! "n" "g<C-a>" #(dial "increment" "gnormal"))
+(map! "n" "g<C-x>" #(dial "decrement" "gnormal"))
+(map! "x" "<C-a>" #(dial "increment" "visual"))
+(map! "x" "<C-x>" #(dial "decrement" "visual"))
+(map! "x" "g<C-a>" #(dial "increment" "gvisual"))
+(map! "x" "g<C-x>" #(dial "decrement" "gvisual"))
 
 ; map("n", "gw", function()
 ;   require("blog.telescope").find_markup()
@@ -215,27 +244,6 @@
 ; -- Replace visual selection
 ; map("v", "<C-r>", "<CMD>SearchReplaceSingleBufferVisualSelection<CR>", {
 ;   desc = "Replace selection",
-; })
-;
-; map("n", "<C-a>", function()
-;   require("dial.map").manipulate("increment", "normal")
-; end, {
-;   desc = "Increment number",
-; })
-; map("n", "<C-x>", function()
-;   require("dial.map").manipulate("decrement", "normal")
-; end, {
-;   desc = "Decrement number",
-; })
-; map("v", "<C-a>", function()
-;   require("dial.map").manipulate("increment", "visual")
-; end, {
-;   desc = "Increment number",
-; })
-; map("v", "<C-x>", function()
-;   require("dial.map").manipulate("decrement", "visual")
-; end, {
-;   desc = "Decrement number",
 ; })
 ;
 ; map("n", "]t", function()
