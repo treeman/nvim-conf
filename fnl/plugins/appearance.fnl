@@ -9,4 +9,16 @@
                       :search {:enabled true}
                       :paste {:enabled true}
                       :undo {:enabled true}
-                      :redo {:enabled true}}}}]
+                      :redo {:enabled true}}}}
+ ;; Show marks
+ {:src "https://github.com/chentoast/marks.nvim"
+  :on_require :marks
+  :setup {:default_mappings false
+          :mappings {:set "m"
+                     :delete "dm"
+                     :delete_line "dm-"
+                     :delete_buf "dm<space>"
+                     :next "]m"
+                     :prev "[m"
+                     :preview "m:"}}
+  :event [:BufReadPost :BufNewFile]}]

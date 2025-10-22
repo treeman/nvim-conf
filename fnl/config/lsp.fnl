@@ -4,27 +4,7 @@
 (mason.setup)
 
 (local mason-lspconfig (require :mason-lspconfig))
-(mason-lspconfig.setup {:automatic_enable true
-                        ;; Not sure if I want this to be honest, but let it be here for now...
-                        :ensure_installed ["lua_ls"
-                                           ; "clangd"
-                                           ; "clangd"
-                                           ; "cssls"
-                                           ; "docker_compose_language_service"
-                                           ; "dockerls"
-                                           ; "dotls"
-                                           ; "emmet_ls"
-                                           ; "fish_lsp"
-                                           ; "eslint"
-                                           ; "html"
-                                           ; "html"
-                                           ; "jsonls"
-                                           ; "marksman"
-                                           ; "pylsp"
-                                           ; "fennel_ls"
-                                           ; "rust_analyzer"
-                                           ; "vimls"
-                                           "yamlls"]})
+(mason-lspconfig.setup {:automatic_enable true})
 
 ;; Maybe we do something smarter for rust_analayzer?
 ; :automatic_enable {

@@ -20,8 +20,8 @@
         : highlight!
         : hi!} (require :laurel.macros))
 
-(fn dbg! [& args]
-  `(print (vim.inspect ,args)))
+(fn dbg! [...]
+  `(print (vim.inspect ,...)))
 
 (fn pack! [spec1 & args]
   "Call vim.pack.add via lze"

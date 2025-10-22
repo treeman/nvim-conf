@@ -1,39 +1,40 @@
 (require-macros :macros)
 
 (λ transform_spec [spec]
-  "Transform a vim.pack spec and split lze arguments into `data`
+  "Transform a vim.pack spec and move lze arguments into `data`
    and create an `after` hook if `setup` is specified."
   (case spec
-    {} (do
-         (local pack_args {})
-         (local data_args {})
-         (each [k v (pairs spec)]
-           (if (vim.list_contains [:src :name :version] k)
-               (tset pack_args k v)
-               (tset data_args k v)))
-         ;; TODO spec.setup and spec.after instead
-         (local setup (. spec :setup))
-         (local on_require (. spec :on_require))
-         (local after (. spec :after))
-         (when setup
-           (when (not on_require)
-             (error (.. "`:setup` specified without `on_require`: "
-                        (vim.inspect spec))))
-           (when after
-             (error (.. "`:setup` specified together with `after`: "
-                        (vim.inspect spec))))
-           (tset data_args :after
-                 (λ []
-                   (local pkg (require on_require))
-                   (pkg.setup setup))))
-         (set pack_args.data data_args)
-         pack_args)
-    other other))
+    {}
+    (do
+      ;; Split keys to vim.pack and rest into `data`.
+      (local pack_args {})
+      (local data_args {})
+      (each [k v (pairs spec)]
+        (if (vim.list_contains [:src :name :version] k)
+            (tset pack_args k v)
+            (tset data_args k v)))
+      ;; Generate an `:after` hook if `:setup` is specified.
+      (when spec.setup
+        (when (not spec.on_require)
+          (error (.. "`:setup` specified without `on_require`: "
+                     (vim.inspect spec))))
+        (when spec.after
+          (error (.. "`:setup` specified together with `after`: "
+                     (vim.inspect spec))))
+        (tset data_args :after
+              (λ []
+                (local pkg (require spec.on_require))
+                (pkg.setup spec.setup))))
+      (set pack_args.data data_args)
+      pack_args)
+    ;; Bare strings are valid vim.pack specs too.
+    other
+    other))
 
 (λ pack_changed [event]
   "Handle pack changed events and issue build commands."
   (local spec event.data.spec)
-  (local build spec.data.build)
+  (local build (?. spec :data :build))
   (local path event.data.path)
   (when (and (vim.list_contains [:update :install] event.data.kind) build)
     (vim.notify (.. "Run `" (vim.inspect build) "` for " spec.name)
@@ -44,7 +45,7 @@
                     ;; vim.notify here errors with
                     ;; vim/_editor.lua:0: E5560: nvim_echo must not be called in a fast event context
                     ;; Simply printing is fine I guess, it doesn't have to be the prettiest solution.
-                    (print (vim.inspect spec.data.build) "failed in" path
+                    (print (vim.inspect build) "failed in" path
                            (vim.inspect exit_obj)))))))
 
 (augroup! :my-plugins (au! :PackChanged pack_changed))

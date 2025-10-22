@@ -1,5 +1,13 @@
 {
   "plugins": {
+    "Comment.nvim": {
+      "rev": "e30b7f2",
+      "src": "https://github.com/numToStr/Comment.nvim"
+    },
+    "blame.nvim": {
+      "rev": "f3f6153",
+      "src": "https://github.com/FabijanZulj/blame.nvim"
+    },
     "conform.nvim": {
       "rev": "235dd79",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -8,13 +16,25 @@
       "rev": "f0404ec",
       "src": "https://github.com/monaqa/dial.nvim"
     },
+    "diffview.nvim": {
+      "rev": "4516612",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "fennel": {
-      "rev": "b73cceb",
+      "rev": "e7f7d89",
       "src": "https://git.sr.ht/~technomancy/fennel"
     },
     "fyler.nvim": {
       "rev": "f19870c",
       "src": "https://github.com/A7Lavinraj/fyler.nvim"
+    },
+    "gitgraph.nvim": {
+      "rev": "c16daa7",
+      "src": "https://github.com/isakbm/gitgraph.nvim"
+    },
+    "gitsigns.nvim": {
+      "rev": "20ad441",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "lualine.nvim": {
       "rev": "3946f01",
@@ -23,6 +43,10 @@
     "lze": {
       "rev": "3c8a768",
       "src": "https://github.com/BirdeeHub/lze"
+    },
+    "marks.nvim": {
+      "rev": "f353e8c",
+      "src": "https://github.com/chentoast/marks.nvim"
     },
     "mason-lspconfig.nvim": {
       "rev": "2304ff6",
@@ -35,6 +59,23 @@
     "melange-nvim": {
       "rev": "ce42f6b",
       "src": "https://github.com/savq/melange-nvim"
+    },
+    "mini.nvim": {
+      "rev": "cf32454",
+      "src": "https://github.com/nvim-mini/mini.nvim",
+      "version": "'main'"
+    },
+    "neogit": {
+      "rev": "0f48491a",
+      "src": "https://github.com/NeogitOrg/neogit"
+    },
+    "nvim-jdtls": {
+      "rev": "380ac14",
+      "src": "https://github.com/mfussenegger/nvim-jdtls"
+    },
+    "nvim-lastplace": {
+      "rev": "0bb6103",
+      "src": "https://github.com/ethanholz/nvim-lastplace"
     },
     "nvim-laurel": {
       "rev": "b197317",
@@ -49,7 +90,7 @@
       "src": "https://github.com/aileot/nvim-thyme"
     },
     "nvim-treesitter": {
-      "rev": "71bf1665",
+      "rev": "30c466ad",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -74,8 +115,12 @@
       "src": "https://github.com/lumen-oss/rtp.nvim"
     },
     "snacks.nvim": {
-      "rev": "58448e0",
+      "rev": "471eb03",
       "src": "https://github.com/folke/snacks.nvim"
+    },
+    "tardis.nvim": {
+      "rev": "f050686",
+      "src": "https://github.com/FredeHoey/tardis.nvim"
     },
     "telescope-fzf-native.nvim": {
       "rev": "1f08ed6",
@@ -93,9 +138,37 @@
       "rev": "84f6b0d",
       "src": "https://github.com/rachartier/tiny-glimmer.nvim"
     },
+    "todo-comments.nvim": {
+      "rev": "19d461d",
+      "src": "https://github.com/folke/todo-comments.nvim"
+    },
     "vim-cool": {
       "rev": "9ea940c",
       "src": "https://github.com/romainl/vim-cool"
+    },
+    "vim-matchup": {
+      "rev": "ca538c3",
+      "src": "https://github.com/andymass/vim-matchup"
+    },
+    "vim-maximizer": {
+      "rev": "2e54952",
+      "src": "https://github.com/szw/vim-maximizer"
+    },
+    "vim-pollen": {
+      "rev": "aaceb56",
+      "src": "https://github.com/otherjoel/vim-pollen"
+    },
+    "vim-sleuth": {
+      "rev": "be69bff",
+      "src": "https://github.com/tpope/vim-sleuth"
+    },
+    "vim-suda": {
+      "rev": "9adda7d",
+      "src": "https://github.com/lambdalisue/vim-suda"
+    },
+    "zoxide.vim": {
+      "rev": "520d1ab",
+      "src": "https://github.com/nanotee/zoxide.vim"
     }
   }
 }

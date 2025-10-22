@@ -1,5 +1,4 @@
 [;; File pickers
- ;; TODO lacks a build parameter
  {:src "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
   :build ["make"]
   :dep_of "telescope.nvim"}
@@ -18,4 +17,29 @@
  ;; Drawer
  {:src "https://github.com/A7Lavinraj/fyler.nvim"
   :on_require :fyler
-  :setup {:icon_provider "nvim_web_devicons" :default_explorer false}}]
+  :setup {:icon_provider "nvim_web_devicons"
+          :default_explorer true
+          :indentscope {:marker "┆"}
+          :win {:kind "split_left_most"
+                :kind_presets {:split_left_most {:width "40abs" :height "1rel"}}}
+          :git_status {:symbols {:Untracked "?"
+                                 :Added "+"
+                                 :Modified "~"
+                                 :Deleted "-"
+                                 :Renamed ">"
+                                 :Copied "*"
+                                 :Conflict "!"
+                                 :Ignored "."}}}}
+ ;; Paths
+ "https://github.com/nanotee/zoxide.vim"
+ {:src "https://github.com/ethanholz/nvim-lastplace"
+  :lazy false
+  :on_require :nvim-lastplace
+  :setup {:lastplace_ignore_buftype ["quickfix" "nofile" "help" "terminal"]
+          :lastplace_ignore_filetype ["dashboard"
+                                      "gitcommit"
+                                      "gitrebase"
+                                      "hgcommit"
+                                      "svn"
+                                      "toggleterm"]
+          :lastplace_open_folds true}}]

@@ -13,6 +13,9 @@
 (hi! :SnacksIndentScope {:link "WinSeparator"})
 (hi! :SnacksIndentChunk {:link "WinSeparator"})
 
+; fyler.nvim
+(hi! :FylerIndentMarker {:link "IblIndent"})
+
 ; Fix neo-tree
 (hi! :NeoTreeNormal {:link "Normal"})
 (hi! :NeoTreeWinSeparator {:link "WinSeparator"})

@@ -65,10 +65,9 @@
 (map! "n" "J" "mzJ`z")
 
 ;; Drawer
-(map! :n "<leader>d"
-      (λ []
-        (local fyler (require :fyler))
-        (fyler.toggle {:kind :split_left_most})) {:desc "Drawer"})
+(map! :n "<leader>d" (λ []
+                       (local fyler (require :fyler))
+                       (fyler.toggle)) {:desc "Drawer"})
 
 (map! "n" "<leader>/" #(: (require :telescope.builtin) :live_grep)
       {:silent true :desc "Find in files"})
@@ -156,7 +155,48 @@
 ;
 
 ;; Maximize current buffer
-; map("n", "<C-w>m", ":MaximizerToggle<CR>", { silent = true, desc = "Maximize window" })
+(g! :maximizer_set_default_mapping false)
+(map! :n "<C-w>m" (<Cmd> "MaximizerToggle")
+      {:silent true :desc "Maximize window"})
+
+;; Git
+(map! :n "gs" (<Cmd> :Neogit) {:desc "Git status"})
+; (map! :n "<leader>g" (<Cmd> :Neogit) {:desc "Git status"})
+(map! :n "gt" (<Cmd> :Tardis) {:desc "Git timemachine (Tardis)"})
+(map! :n "g<space>" ":Git " {:desc "Git"})
+(map! :n "gB" (<Cmd> "BlameToggle virtual") {:silent true :desc "Git blame"})
+
+;; Sometimes the : shortcut work but other times it doesn't...
+(map! :n "]h" #(: (require :gitsigns) :next_hunk) {:desc "Next hunk"})
+(map! :n "[h" #(: (require :gitsigns) :prev_hunk) {:desc "Prev hunk"})
+
+(map! :n "<leader>hs" (λ [] (local signs (require :gitsigns))
+                        (signs.stage_hunk))
+      {:desc "Stage hunk"})
+
+(map! :n "<leader>hr" (λ [] (local signs (require :gitsigns))
+                        (signs.reset_hunk))
+      {:desc "Reset hunk"})
+
+(map! :v "<leader>hs"
+      (λ []
+        (local signs (require :gitsigns))
+        (signs.stage_hunk [(vim.fn.line ".") (vim.fn.line "v")]))
+      {:desc "Stage hunk"})
+
+(map! :v "<leader>hr"
+      (λ []
+        (local signs (require :gitsigns))
+        (signs.reset_hunk [(vim.fn.line ".") (vim.fn.line "v")]))
+      {:desc "Reset hunk"})
+
+(map! :n "<leader>u" #(: (require :undotree) :open {:command "topleft 30vnew"}))
+;
+; map("n", "<leader>u", function()
+;   require("undotree").toggle()
+; end, {
+;   desc = "Undotree",
+; })
 ;
 ; -- Edit files in workspace
 ; map("n", "<leader>ed", ":Oil .<CR>", { desc = "Edit workspace" })
@@ -168,31 +208,9 @@
 ;   { desc = "Edit directory of buffer" }
 ; )
 ;
-; map("n", "<leader>d", ":Neotree toggle=true<CR>", { desc = "Neotree" })
 ; map("n", "<leader>t", ":Trouble cascade toggle<cr>", { desc = "Diagnostics" })
 ;
 ; -- Git
-; -- map("n", "gs", ":Neogit<CR>", { desc = "Git status" })
-; map("n", "<leader>g", ":Neogit<CR>", { desc = "Git status" })
-; map("n", "gt", ":Tardis git<CR>", { desc = "Git timemachine (Tardis)" })
-; map("n", "g<space>", ":Git ", { desc = "Git" })
-
-; map("n", "gB", ":BlameToggle<CR>", { silent = true, desc = "Git blame" })
-; -- Jujutsu
-; -- map("n", "<leader>j", ":JJ ", { desc = "Jujutsu" })
-; -- map("n", "gl", function()
-; --   require("jj.views.log").open()
-; -- end, { desc = "Jujutsu log" })
-; -- map("n", "gs", function()
-; --   require("jj").execute("status")
-; -- end, { desc = "Jujutsu status" })
-; -- map("n", "gd", function()
-; --   require("jj").execute("diff")
-; -- end, { desc = "Jujutsu diff" })
-; -- map("n", "gL", function()
-; --   require("jj").execute("op log")
-; -- end, { desc = "Jujutsu op log" })
-
 ;
 ; -- Spell
 ; map("n", "ss", function()
@@ -269,12 +287,6 @@
 ; end, {
 ;   desc = "First trouble",
 ;   silent = true,
-; })
-;
-; map("n", "<leader>u", function()
-;   require("undotree").toggle()
-; end, {
-;   desc = "Undotree",
 ; })
 ;
 ; local old_gx = vim.fn.maparg("gx", "n", nil, true)
