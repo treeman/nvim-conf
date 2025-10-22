@@ -1,6 +1,4 @@
 (require-macros :laurel.macros)
 
-; (command! :UpdatePacks (fn []) (vim.pack.update)
-;           ; Corresponds to `require("thyme"):setup()` in lua.
-;           ; (: (require :thyme) :setup)
-;           (vim.cmd "ThymeCacheClear"))
+(command! :ToggleSpell #(set! :spell (not (vim.opt.spell:get))))
+(command! :Rename #(: (require :snacks.rename) :rename_file))

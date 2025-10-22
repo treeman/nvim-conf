@@ -9,7 +9,11 @@ vim.pack.add({
 	-- Gives us some pleasant fennel macros.
 	"https://github.com/aileot/nvim-laurel",
 	-- Enables lazy loading of plugins.
-	"https://github.com/BirdeeHub/lze",
+	{ src = "https://github.com/BirdeeHub/lze", data = {
+		build = function()
+			vim.cmd("ThymeCacheClear")
+		end,
+	} },
 }, { confirm = false })
 
 -- Override package loading so thyme can hook into `require` calls and generate lua code

@@ -53,7 +53,7 @@
 (set! :laststatus 2) ; always show the status line
 
 (set! :spell true)
-(set! :spelllang [ "en_us" "sv" ])
+(set! :spelllang [ "en_us" "sv"])
 
 (set! :lazyredraw true) ; speed up macros
 

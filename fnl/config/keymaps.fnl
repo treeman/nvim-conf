@@ -190,14 +190,9 @@
         (signs.reset_hunk [(vim.fn.line ".") (vim.fn.line "v")]))
       {:desc "Reset hunk"})
 
-(map! :n "<leader>u" #(: (require :undotree) :open {:command "topleft 30vnew"}))
-;
-; map("n", "<leader>u", function()
-;   require("undotree").toggle()
-; end, {
-;   desc = "Undotree",
-; })
-;
+(map! :n "<leader>u" #(: (require :undotree) :open {:command "topleft 30vnew"})
+      {:desc "Undotree"})
+
 ; -- Edit files in workspace
 ; map("n", "<leader>ed", ":Oil .<CR>", { desc = "Edit workspace" })
 ; -- Edit files in within the current directory
@@ -209,8 +204,6 @@
 ; )
 ;
 ; map("n", "<leader>t", ":Trouble cascade toggle<cr>", { desc = "Diagnostics" })
-;
-; -- Git
 ;
 ; -- Spell
 ; map("n", "ss", function()
@@ -234,19 +227,7 @@
 ;   silent = true,
 ;   desc = "Make quickfix editable for replacing in",
 ; })
-; map("n", "<leader>sw", function()
-;   require("spectre").open_visual({ select_word = true })
-; end, {
-;   silent = true,
-;   desc = "Search current word",
-; })
-; map("v", "<leader>sw", function()
-;   require("spectre").open_visual()
-; end, {
-;   silent = true,
-;   desc = "Search selection",
-; })
-;
+
 ; -- Replace word under cursor
 ; map("n", "<leader>rw", "<cmd>SearchReplaceSingleBufferCWord<cr>", {
 ;   desc = "Replace CWord",
@@ -291,3 +272,191 @@
 ;
 ; local old_gx = vim.fn.maparg("gx", "n", nil, true)
 ; map("n", "gx", require("custom.open").gx_extended(old_gx.callback), { desc = old_gx.desc })
+
+; M.buf_blog = function(buffer)
+;   map("n", "<localleader>d", function()
+;       require("blog.interaction").goto_def()
+;       end, { buffer = buffer, desc = "Goto definition"})
+;   map("n", "<localleader>h", require("blog.interaction").hover, { buffer = buffer, desc = "Hover help"})
+; end
+
+; M.djot = function()
+;   -- FIXME this has stopped working
+;   map("n", "<localleader>w", ":Trouble ts_headings toggle<CR>", { buffer = 0, desc = "Display headings"})
+
+;   -- Indent list
+;   -- De-indent list
+;   -- o O <CR> (i) auto next list item
+;   -- Cycle list types?
+;   -- Recalculate list numbers
+;   map("n", "<Tab>", function()
+;       R("org.task_marker").toggle_task_marker()
+;       end, { buffer = 0, desc = "Toggle list marker"})
+;   map("n", "<leader>rl", function()
+;       R("org.lists").reset_list_numbering()
+;       end, { buffer = 0, desc = "Reset list numbering"})
+
+;   map("n", "<CR>", function()
+;       R("org.links").visit_nearest_link()
+;       end, { buffer = 0, desc = "Visit closest link"})
+;   map("v", "<CR>", function()
+;       R("org.links").create_link({ link_style = "collapsed_reference"})
+;       end, { buffer = 0, desc = "Create link"})
+;   map({ "o", "x" }, "u", function()
+;       R("org.links").select_link_url()
+;       end, { buffer = 0, desc = "Select link url"})
+;   map("n", "<leader>l", function()
+;       R("org.links").convert_link()
+;       end, { buffer = 0, desc = "Convert link type"})
+
+;   map({ "o", "x" }, "ic", function()
+;       R("org.table").select_table_cell()
+;       end, { buffer = 0, desc = "Select table cell"})
+
+;   -- map("n", "<up>", "gk")
+;   -- map("n", "<down>", "gj")
+; end
+
+; -- Maps four pairs:
+; -- [f, [F, ]f, ]F
+; -- for the given treesitter textobject
+; -- see: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+; local ts_move_keys = {
+;                       f = { query = "@function.outer", desc = "goto function" },
+;                       a = { query = "@attribute.inner", desc = "goto attribute" },
+;                       b = { query = "@block.inner", desc = "goto block" },
+;                       c = { query = "@class.outer", desc = "goto class" },
+;                       x = { query = "@comment.outer", desc = "goto comment" },
+;                       g = { query = { "@class.outer", "@function.outer" }, desc = "goto major" },
+;                       -- t = { query = "@heading1", desc = "goto heading1" },}
+
+; M.ts_goto_next_start = {}
+; M.ts_goto_next_end = {}
+; M.ts_goto_previous_start = {}
+; M.ts_goto_previous_end = {}
+
+; for k, v in pairs(ts_move_keys) do
+;   M.ts_goto_next_start["]" .. k] = v
+;   M.ts_goto_next_end["]" .. string.upper(k)] = v
+;   M.ts_goto_previous_start["[" .. k] = v
+;   M.ts_goto_previous_end["[" .. string.upper(k)] = v
+; end
+
+; -- Some symbolic keymaps that don't have a string.upper()
+; M.ts_goto_next_start["]="] = { query = "@statement.outer", desc = "goto statement"}
+; M.ts_goto_previous_start["[="] = { query = "@statement.outer", desc = "goto statement"}
+; M.ts_goto_next_start["],"] = { query = "@parameter.outer", desc = "goto parameter"}
+; M.ts_goto_previous_start["[,"] = { query = "@parameter.outer", desc = "goto parameter"}
+
+; M.ts_swap_next = {
+;                   ["<leader>s"] = { query = "@parameter.inner", desc = "Swap next parameter" },}
+
+; M.ts_swap_previous = {
+;                       ["<leader>S"] = { query = "@parameter.inner", desc = "Swap previous parameter" },}
+
+; M.ts_select = {
+;                ["af"] = { query = "@function.outer", desc = "Select outer function" },
+;                ["if"] = { query = "@function.inner", desc = "Select inner function" },
+;                ["ac"] = { query = "@class.outer", desc = "Select outer class" },
+;                ["ic"] = { query = "@class.inner", desc = "Select inner class" },
+;                ["ab"] = { query = "@block.outer", desc = "Select outer block" },
+;                ["ib"] = { query = "@block.inner", desc = "Select inner block" },
+;                ["aa"] = { query = "@attribute.outer", desc = "Select outer attribute" },
+;                ["ia"] = { query = "@attribute.inner", desc = "Seect inner attribute" },
+;                ["ax"] = { query = "@comment.outer", desc = "Select outer comment" },
+;                ["ix"] = { query = "@comment.inner", desc = "Select inner comment" },
+;                ["a="] = { query = "@statement.outer", desc = "Select outer statement" },
+;                ["i="] = { query = "@statement.inner", desc = "Select inner statement" },
+;                ["a,"] = { query = "@parameter.outer", desc = "Select outer parameter" },
+;                ["i,"] = { query = "@parameter.inner", desc = "Select inner parameter" },}
+
+; M.neotest = function(buffer)
+;   map("n", "<leader>x", function()
+;       require("neotest").run.run()
+;       end, { buffer = buffer, desc = "Neotest run test at cursor"})
+;   map("n", "<leader>X", function()
+;       require("neotest").run.run(vim.fn.expand("%"))
+;       end, { buffer = buffer, desc = "Neotest run tests in file"})
+;   map("n", "<leader>m", function()
+;       require("neotest").run.run(vim.loop.cwd())
+;       end, { buffer = buffer, desc = "Neotest run tests in workspace"})
+
+;   map("n", "<leader>n", function()
+;       require("neotest").output_panel.toggle()
+;       end, { buffer = buffer, desc = "Neotest toggle panel tab"})
+;   map("n", "<leader>N", function()
+;       require("neotest").summary.toggle()
+;       end, { buffer = buffer, desc = "Neotest toggle summary tab"})
+; end
+
+; M.buf_lsp = function(_, buffer)
+;   -- NOTE there are other cool possibilities listed in nvim-lspconfig
+;   map("n", "<localleader>D", vim.lsp.buf.declaration, { silent = true, buffer = buffer, desc = "Declaration"})
+;   map("n", "<localleader>d", vim.lsp.buf.definition, { silent = true, buffer = buffer, desc = "Definition"})
+;   map("n", "<localleader>r", vim.lsp.buf.references, { silent = true, buffer = buffer, desc = "References"})
+;   -- Jumping doesn't quite work, don't switch yet.
+;   -- map(
+;          --   "n",
+;          --   "<localleader>r",
+;          --   ":TroubleToggle lsp_references<CR>",
+;          --   { silent = true, buffer = buffer, desc = "References"}
+;          --)
+;   map("n", "<localleader>i", vim.lsp.buf.implementation, { silent = true, buffer = buffer, desc = "Implementation"})
+;   map(
+;       "n",
+;       "<localleader>t",
+;       vim.lsp.buf.type_definition,
+;       { silent = true, buffer = buffer, desc = "Type definition"})
+;
+;   map("n", "<localleader>h", vim.lsp.buf.hover, { silent = true, buffer = buffer, desc = "Hover"})
+;   map("n", "<localleader>s", vim.lsp.buf.signature_help, { silent = true, buffer = buffer, desc = "Signature help"})
+;   map("n", "<localleader>x", vim.lsp.buf.code_action, { silent = true, buffer = buffer, desc = "Code action"})
+;   map("n", "<localleader>l", "<cmd>lua vim.diagnostic.open_float({ focusable = false })<CR>")
+;   map("n", "<localleader>R", vim.lsp.buf.rename, { silent = true, buffer = buffer, desc = "Rename"})
+;   map("n", "<localleader>I", vim.lsp.buf.incoming_calls, { silent = true, buffer = buffer, desc = "Incoming calls"})
+;   map("n", "<localleader>O", vim.lsp.buf.outgoing_calls, { silent = true, buffer = buffer, desc = "Outgoing calls"})
+;   map(
+;       "n",
+;       "<localleader>w",
+;       ":Trouble symbols toggle<CR>",
+;       { silent = true, buffer = buffer, desc = "Document symbols"})
+;
+; end
+
+; -- These are default bindings in Neovim but they don't open the diagnostic floats immediately.
+; -- Calling them manually does though...
+; M.global_lsp = function()
+;   map("n", "]d", vim.diagnostic.goto_next, { silent = true, desc = "Next diagnostic"})
+;   map("n", "[d", vim.diagnostic.goto_prev, { silent = true, desc = "Prev diagnostic"})
+; end
+
+; M.gitsigns = function(buffer)
+;   local gitsigns = package.loaded.gitsigns
+;   map("n", "]h", gitsigns.next_hunk, { silent = true, buffer = buffer, desc = "Next hunk"})
+;   map("n", "[h", gitsigns.prev_hunk, { silent = true, buffer = buffer, desc = "Prev hunk"})
+;   map("n", "<leader>hs", gitsigns.stage_hunk, { silent = true, buffer = buffer, desc = "Stage hunk"})
+;   map("n", "<leader>hr", gitsigns.reset_hunk, { silent = true, buffer = buffer, desc = "Reset hunk"})
+;   map("v", "<leader>hs", function()
+;       gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v")})
+;       end, { silent = true, buffer = buffer, desc = "Stage hunk"})
+;   map("v", "<leader>hr", function()
+;       gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v")})
+;       end, { silent = true, buffer = buffer, desc = "Reset hunk"})
+;   map("n", "<leader>hb", function()
+;       gitsigns.blame_line({ full = true})
+;       end, { silent = true, buffer = buffer, desc = "Blame hunk"})
+; end
+
+; M.marks = {
+;            set = "m",
+;            delete = "dm",
+;            delete_line = "dm-",
+;            delete_buf = "dm<space>",
+;            next = "]m",
+;            prev = "[m",
+;            preview = "m:",}
+
+; M.pollen = function()
+;   map("i", "<C-l>", "λ")
+;   map("i", "<C-e>", "◊")
+; end

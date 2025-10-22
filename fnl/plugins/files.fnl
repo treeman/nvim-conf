@@ -19,9 +19,11 @@
   :on_require :fyler
   :setup {:icon_provider "nvim_web_devicons"
           :default_explorer true
+          :close_on_select false
           :indentscope {:marker "┆"}
           :win {:kind "split_left_most"
-                :kind_presets {:split_left_most {:width "40abs" :height "1rel"}}}
+                :kind_presets {:split_left_most {:width "40abs" :height "1rel"}}
+                :win_opts {:spell false}}
           :git_status {:symbols {:Untracked "?"
                                  :Added "+"
                                  :Modified "~"
