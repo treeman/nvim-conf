@@ -22,6 +22,7 @@ end)
 local thyme_cache_prefix = vim.fn.stdpath("cache") .. "/thyme/compiled"
 vim.opt.rtp:prepend(thyme_cache_prefix)
 
+-- Allow us to specify post update scripts via the `build` parameter.
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(event)
 		local spec = event.data.spec
@@ -36,7 +37,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
 
 		local path = event.data.path
 		local build = spec.data.build
-		local after_update = spec.data.after_update
 
 		if build then
 			vim.notify("Run `" .. vim.inspect(build) .. "` for " .. spec.name, vim.log.levels.INFO)

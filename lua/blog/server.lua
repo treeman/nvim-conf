@@ -163,8 +163,6 @@ local function handle_reply(data)
 		return
 	end
 
-	print(vim.inspect(reply))
-
 	-- vim.notify(vim.inspect(reply), vim.log.levels.ERROR)
 
 	if reply["message_id"] then
