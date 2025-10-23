@@ -31,25 +31,6 @@
     other
     other))
 
-(λ pack_changed [event]
-  "Handle pack changed events and issue build commands."
-  (local spec event.data.spec)
-  (local build (?. spec :data :build))
-  (local path event.data.path)
-  (when (and (vim.list_contains [:update :install] event.data.kind) build)
-    (vim.notify (.. "Run `" (vim.inspect build) "` for " spec.name)
-                vim.log.levels.INFO)
-    (vim.system build {:cwd path}
-                (λ [exit_obj]
-                  (when (= exit_obj.code 0)
-                    ;; vim.notify here errors with
-                    ;; vim/_editor.lua:0: E5560: nvim_echo must not be called in a fast event context
-                    ;; Simply printing is fine I guess, it doesn't have to be the prettiest solution.
-                    (print (vim.inspect build) "failed in" path
-                           (vim.inspect exit_obj)))))))
-
-(augroup! :my-plugins (au! :PackChanged pack_changed))
-
 ;; List all files, with absolute paths.
 (local paths (-> (vim.fn.stdpath "config")
                  (.. "/fnl/plugins/*")
