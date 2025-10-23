@@ -8,13 +8,25 @@
       "rev": "f3f6153",
       "src": "https://github.com/FabijanZulj/blame.nvim"
     },
+    "blink-cmp-spell": {
+      "rev": "2bd0e0d",
+      "src": "https://github.com/ribru17/blink-cmp-spell"
+    },
     "blink.cmp": {
       "rev": "d93e01a",
       "src": "https://github.com/Saghen/blink.cmp"
     },
+    "colorful-menu.nvim": {
+      "rev": "d5b97d2",
+      "src": "https://github.com/xzbdmw/colorful-menu.nvim"
+    },
     "conform.nvim": {
       "rev": "235dd79",
       "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "css-vars.nvim": {
+      "rev": "0615782",
+      "src": "https://github.com/jdrupal-dev/css-vars.nvim"
     },
     "dial.nvim": {
       "rev": "f0404ec",

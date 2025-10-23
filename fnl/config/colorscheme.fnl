@@ -27,10 +27,10 @@
 (hi! :NeoTreeFadeText2 {:link "LineNr"})
 (hi! :NeoTreeDimText {:link "WinSeparator"})
 
-; Modify cmp LSP kinds
+; Modify nvim-cmp LSP kinds
 (hi! :CmpItemAbbrMatch {:link "Function"})
 (hi! :CmpItemKindText {:link "Conceal"})
-(hi! :CmpItemKindMethod {:link "@lsp.type.meThod"})
+(hi! :CmpItemKindMethod {:link "@lsp.type.method"})
 (hi! :CmpItemKindFunction {:link "@lsp.type.function"})
 (hi! :CmpItemKindConstructor {:link "@lsp.type.function"})
 (hi! :CmpItemKindField {:link "Identifier"})
@@ -55,6 +55,34 @@
 (hi! :CmpItemKindOperator {:link "@lsp.type.operator"})
 (hi! :CmpItemKindTypeParameter {:link "@lsp.type.typeParameter"})
 (hi! :CmpItemMenu {:link "Conceal"})
+
+;; blink.cmp
+(hi! :BlinkCmpKindText {:link "Conceal"})
+(hi! :BlinkCmpKindMethod {:link "@lsp.type.method"})
+(hi! :BlinkCmpKindFunction {:link "@lsp.type.function"})
+(hi! :BlinkCmpKindConstructor {:link "@lsp.type.function"})
+(hi! :BlinkCmpKindField {:link "Identifier"})
+(hi! :BlinkCmpKindVariable {:link "@lsp.type.variable"})
+(hi! :BlinkCmpKindClass {:link "@lsp.type.class"})
+(hi! :BlinkCmpKindInterface {:link "@lsp.type.class"})
+(hi! :BlinkCmpKindModule {:link "@lsp.type.namespace"})
+(hi! :BlinkCmpKindProperty {:link "@lsp.type.property"})
+(hi! :BlinkCmpKindUnit {:link "Number"})
+(hi! :BlinkCmpKindValue {:link "Number"})
+(hi! :BlinkCmpKindEnum {:link "@lsp.type.enum"})
+(hi! :BlinkCmpKindKeyword {:link "@lsp.type.keyword"})
+(hi! :BlinkCmpKindSnippet {:link "Number"})
+(hi! :BlinkCmpKindColor {:link "Operator"})
+(hi! :BlinkCmpKindFile {:link "Statement"})
+(hi! :BlinkCmpKindReference {:link "CursorLineNr"})
+(hi! :BlinkCmpKindFolder {:link "Special"})
+(hi! :BlinkCmpKindEnumMember {:link "@lsp.type.enumMember"})
+(hi! :BlinkCmpKindConstant {:link "Constant"})
+(hi! :BlinkCmpKindStruct {:link "@lsp.type.struct"})
+(hi! :BlinkCmpKindEvent {:link "Special"})
+(hi! :BlinkCmpKindOperator {:link "@lsp.type.operator"})
+(hi! :BlinkCmpKindTypeParameter {:link "@lsp.type.typeParameter"})
+(hi! :BlinkCmpSource {:link "@comment"})
 
 ; Neotest colors
 (hi! :NeotestAdapterName {:link "Conceal"})
