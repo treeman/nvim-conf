@@ -29,9 +29,15 @@
 (vim.lsp.enable "expert")
 
 ;; These are default bindings in Neovim but they don't open the diagnostic floats immediately.
-;; Calling them manually does though...
-(map! "n" "]d" vim.diagnostic.goto_next {:silent true :desc "Next diagnostic"})
-(map! "n" "[d" vim.diagnostic.goto_prev {:silent true :desc "Prev diagnostic"})
+(map! "n" "]d" #(do
+                  (vim.diagnostic.jump {:count 1})
+                  (vim.lsp.buf.hover))
+      {:silent true :desc "Next diagnostic"})
+
+(map! "n" "[d" #(do
+                  (vim.diagnostic.jump {:count -1})
+                  (vim.lsp.buf.hover))
+      {:silent true :desc "Prev diagnostic"})
 
 ; NOTE there are other cool possibilities listed in nvim-lspconfig
 (augroup! :my-lsps

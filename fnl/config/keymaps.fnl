@@ -136,6 +136,9 @@
 (map! "n" "<leader>en" #(find_org_file "notes") {:desc "Org notes"})
 (map! "n" "<leader>eA" #(find_org_file "archive") {:desc "Org archive"})
 
+(map! :n "gw" #(: (require :blog.telescope) :find_markup)
+      {:desc "Find blog content"})
+
 (λ dial [dir sel]
   (local dial (require :dial.map))
   (dial.manipulate dir sel))
@@ -148,11 +151,6 @@
 (map! "x" "<C-x>" #(dial "decrement" "visual"))
 (map! "x" "g<C-a>" #(dial "increment" "gvisual"))
 (map! "x" "g<C-x>" #(dial "decrement" "gvisual"))
-
-; map("n", "gw", function()
-;   require("blog.telescope").find_markup()
-; end, { desc = "Find blog content" })
-;
 
 ;; Maximize current buffer
 (g! :maximizer_set_default_mapping false)
@@ -278,43 +276,6 @@
 ;       require("blog.interaction").goto_def()
 ;       end, { buffer = buffer, desc = "Goto definition"})
 ;   map("n", "<localleader>h", require("blog.interaction").hover, { buffer = buffer, desc = "Hover help"})
-; end
-
-; M.djot = function()
-;   -- FIXME this has stopped working
-;   map("n", "<localleader>w", ":Trouble ts_headings toggle<CR>", { buffer = 0, desc = "Display headings"})
-
-;   -- Indent list
-;   -- De-indent list
-;   -- o O <CR> (i) auto next list item
-;   -- Cycle list types?
-;   -- Recalculate list numbers
-;   map("n", "<Tab>", function()
-;       R("org.task_marker").toggle_task_marker()
-;       end, { buffer = 0, desc = "Toggle list marker"})
-;   map("n", "<leader>rl", function()
-;       R("org.lists").reset_list_numbering()
-;       end, { buffer = 0, desc = "Reset list numbering"})
-
-;   map("n", "<CR>", function()
-;       R("org.links").visit_nearest_link()
-;       end, { buffer = 0, desc = "Visit closest link"})
-;   map("v", "<CR>", function()
-;       R("org.links").create_link({ link_style = "collapsed_reference"})
-;       end, { buffer = 0, desc = "Create link"})
-;   map({ "o", "x" }, "u", function()
-;       R("org.links").select_link_url()
-;       end, { buffer = 0, desc = "Select link url"})
-;   map("n", "<leader>l", function()
-;       R("org.links").convert_link()
-;       end, { buffer = 0, desc = "Convert link type"})
-
-;   map({ "o", "x" }, "ic", function()
-;       R("org.table").select_table_cell()
-;       end, { buffer = 0, desc = "Select table cell"})
-
-;   -- map("n", "<up>", "gk")
-;   -- map("n", "<down>", "gj")
 ; end
 
 ; -- Maps four pairs:

@@ -8,6 +8,10 @@
       "rev": "f3f6153",
       "src": "https://github.com/FabijanZulj/blame.nvim"
     },
+    "blink.cmp": {
+      "rev": "d93e01a",
+      "src": "https://github.com/Saghen/blink.cmp"
+    },
     "conform.nvim": {
       "rev": "235dd79",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -84,6 +88,10 @@
     "nvim-lspconfig": {
       "rev": "e5c61b0",
       "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-nio": {
+      "rev": "21f5324",
+      "src": "https://github.com/nvim-neotest/nvim-nio"
     },
     "nvim-thyme": {
       "rev": "7882323",

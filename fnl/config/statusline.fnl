@@ -25,6 +25,9 @@
       (table.concat (vim.opt.spelllang:get) ",")
       ""))
 
+(λ blog_status []
+  (: (require :blog.server) :blog_status))
+
 ;
 ;; Note that "0x%0B" is bugged, but works with the %b prefix)
 ;; local charhex = "%b 0x%B"
@@ -98,6 +101,8 @@
                                             (trunc 80 80 80 true))]
                            :lualine_c [filename]
                            :lualine_x [(tx! "lsp_status" :fmt
+                                            (trunc 120 10 60 true))
+                                       (tx! blog_status :fmt
                                             (trunc 120 10 60 true))]
                            :lualine_y [(tx! spell :fmt (trunc 120 120 120 true))
                                        (tx! "encoding" :fmt
@@ -111,4 +116,3 @@
                                     :lualine_x {}
                                     :lualine_y {}
                                     :lualine_z {}}})
-

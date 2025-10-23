@@ -12,6 +12,7 @@
  ;; Note that we need to enable other LSPs manually with `vim.lsp.enable`.
  "https://github.com/mason-org/mason-lspconfig.nvim"
  ;; Treesitter
+ ;; TODO needs TSUpdate after installation/update
  {:src "https://github.com/nvim-treesitter/nvim-treesitter" :version :main}
  ;; Git
  {:src "https://github.com/sindrets/diffview.nvim" :dep_of :neogit}
