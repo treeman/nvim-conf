@@ -69,25 +69,42 @@
                        (local fyler (require :fyler))
                        (fyler.toggle)) {:desc "Drawer"})
 
+; Edit files in current directory
+(map! :n "<leader>e."
+      (λ []
+        (local fyler (require :fyler))
+        (fyler.open {:dir (vim.fn.expand "%:p:h")}))
+      {:desc "Edit directory of buffer"})
+
+;; Try out fff.nvim as our file picker
 (map! "n" "<leader>/" #(: (require :telescope.builtin) :live_grep)
       {:silent true :desc "Find in files"})
 
-(map! "n" "<leader>f" #(: (require :telescope.builtin) :find_files)
+(map! "n" "<leader>f" #(: (require :fff) :find_files)
       {:silent true :desc "Find files"})
 
+(map! "n" "<leader>F" #(: (require :fff) :find_files_in_dir
+                          (vim.fn.expand "%:p:h"))
+      {:silent true :desc "Find files from local dir"})
+
+(map! "n" "<leader>ec" #(: (require :fff) :find_files_in_dir
+                           (vim.fn.stdpath "config"))
+      {:silent true :desc "Find files"})
+
+; (map! "n" "<leader>f" #(: (require :telescope.builtin) :find_files)
+;       {:silent true :desc "Find files"})
 ; (map! "n" "<leader>F" #(: (require :telescope.builtin) :find_files
 ;                           {:cwd (vim.fn.expand "%:p:h")})
 ;       {:silent true :desc "Find files"})
-(map! "n" "<leader>F"
-      (λ []
-        (local builtin (require :telescope.builtin))
-        (builtin.find_files {:cwd (vim.fn.expand "%:p:h")}))
-      {:silent true :desc "Find files"})
-
-(map! "n" "<leader>ec"
-      #(: (require :telescope.builtin) :find_files
-          {:cwd (vim.fn.stdpath "config")})
-      {:silent true :desc "Find files"})
+; (map! "n" "<leader>F"
+;       (λ []
+;         (local builtin (require :telescope.builtin))
+;         (builtin.find_files {:cwd (vim.fn.expand "%:p:h")}))
+;       {:silent true :desc "Find files"})
+; (map! "n" "<leader>ec"
+;       #(: (require :telescope.builtin) :find_files
+;           {:cwd (vim.fn.stdpath "config")})
+;       {:silent true :desc "Find files"})
 
 (map! "n" "<leader>b" #(: (require :telescope.builtin) :buffers)
       {:silent true :desc "Buffers"})
@@ -330,94 +347,3 @@
 ;                ["i="] = { query = "@statement.inner", desc = "Select inner statement" },
 ;                ["a,"] = { query = "@parameter.outer", desc = "Select outer parameter" },
 ;                ["i,"] = { query = "@parameter.inner", desc = "Select inner parameter" },}
-
-; M.neotest = function(buffer)
-;   map("n", "<leader>x", function()
-;       require("neotest").run.run()
-;       end, { buffer = buffer, desc = "Neotest run test at cursor"})
-;   map("n", "<leader>X", function()
-;       require("neotest").run.run(vim.fn.expand("%"))
-;       end, { buffer = buffer, desc = "Neotest run tests in file"})
-;   map("n", "<leader>m", function()
-;       require("neotest").run.run(vim.loop.cwd())
-;       end, { buffer = buffer, desc = "Neotest run tests in workspace"})
-
-;   map("n", "<leader>n", function()
-;       require("neotest").output_panel.toggle()
-;       end, { buffer = buffer, desc = "Neotest toggle panel tab"})
-;   map("n", "<leader>N", function()
-;       require("neotest").summary.toggle()
-;       end, { buffer = buffer, desc = "Neotest toggle summary tab"})
-; end
-
-; M.buf_lsp = function(_, buffer)
-;   -- NOTE there are other cool possibilities listed in nvim-lspconfig
-;   map("n", "<localleader>D", vim.lsp.buf.declaration, { silent = true, buffer = buffer, desc = "Declaration"})
-;   map("n", "<localleader>d", vim.lsp.buf.definition, { silent = true, buffer = buffer, desc = "Definition"})
-;   map("n", "<localleader>r", vim.lsp.buf.references, { silent = true, buffer = buffer, desc = "References"})
-;   -- Jumping doesn't quite work, don't switch yet.
-;   -- map(
-;          --   "n",
-;          --   "<localleader>r",
-;          --   ":TroubleToggle lsp_references<CR>",
-;          --   { silent = true, buffer = buffer, desc = "References"}
-;          --)
-;   map("n", "<localleader>i", vim.lsp.buf.implementation, { silent = true, buffer = buffer, desc = "Implementation"})
-;   map(
-;       "n",
-;       "<localleader>t",
-;       vim.lsp.buf.type_definition,
-;       { silent = true, buffer = buffer, desc = "Type definition"})
-;
-;   map("n", "<localleader>h", vim.lsp.buf.hover, { silent = true, buffer = buffer, desc = "Hover"})
-;   map("n", "<localleader>s", vim.lsp.buf.signature_help, { silent = true, buffer = buffer, desc = "Signature help"})
-;   map("n", "<localleader>x", vim.lsp.buf.code_action, { silent = true, buffer = buffer, desc = "Code action"})
-;   map("n", "<localleader>l", "<cmd>lua vim.diagnostic.open_float({ focusable = false })<CR>")
-;   map("n", "<localleader>R", vim.lsp.buf.rename, { silent = true, buffer = buffer, desc = "Rename"})
-;   map("n", "<localleader>I", vim.lsp.buf.incoming_calls, { silent = true, buffer = buffer, desc = "Incoming calls"})
-;   map("n", "<localleader>O", vim.lsp.buf.outgoing_calls, { silent = true, buffer = buffer, desc = "Outgoing calls"})
-;   map(
-;       "n",
-;       "<localleader>w",
-;       ":Trouble symbols toggle<CR>",
-;       { silent = true, buffer = buffer, desc = "Document symbols"})
-;
-; end
-
-; -- These are default bindings in Neovim but they don't open the diagnostic floats immediately.
-; -- Calling them manually does though...
-; M.global_lsp = function()
-;   map("n", "]d", vim.diagnostic.goto_next, { silent = true, desc = "Next diagnostic"})
-;   map("n", "[d", vim.diagnostic.goto_prev, { silent = true, desc = "Prev diagnostic"})
-; end
-
-; M.gitsigns = function(buffer)
-;   local gitsigns = package.loaded.gitsigns
-;   map("n", "]h", gitsigns.next_hunk, { silent = true, buffer = buffer, desc = "Next hunk"})
-;   map("n", "[h", gitsigns.prev_hunk, { silent = true, buffer = buffer, desc = "Prev hunk"})
-;   map("n", "<leader>hs", gitsigns.stage_hunk, { silent = true, buffer = buffer, desc = "Stage hunk"})
-;   map("n", "<leader>hr", gitsigns.reset_hunk, { silent = true, buffer = buffer, desc = "Reset hunk"})
-;   map("v", "<leader>hs", function()
-;       gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v")})
-;       end, { silent = true, buffer = buffer, desc = "Stage hunk"})
-;   map("v", "<leader>hr", function()
-;       gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v")})
-;       end, { silent = true, buffer = buffer, desc = "Reset hunk"})
-;   map("n", "<leader>hb", function()
-;       gitsigns.blame_line({ full = true})
-;       end, { silent = true, buffer = buffer, desc = "Blame hunk"})
-; end
-
-; M.marks = {
-;            set = "m",
-;            delete = "dm",
-;            delete_line = "dm-",
-;            delete_buf = "dm<space>",
-;            next = "]m",
-;            prev = "[m",
-;            preview = "m:",}
-
-; M.pollen = function()
-;   map("i", "<C-l>", "λ")
-;   map("i", "<C-e>", "◊")
-; end

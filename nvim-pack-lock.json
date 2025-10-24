@@ -40,6 +40,10 @@
       "rev": "8d2f856",
       "src": "https://git.sr.ht/~technomancy/fennel"
     },
+    "fff.nvim": {
+      "rev": "e8850c3",
+      "src": "https://github.com/dmtrKovalenko/fff.nvim"
+    },
     "fyler.nvim": {
       "rev": "f19870c",
       "src": "https://github.com/A7Lavinraj/fyler.nvim"
@@ -65,7 +69,7 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "2304ff6",
+      "rev": "83db017",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -110,7 +114,7 @@
       "src": "https://github.com/aileot/nvim-thyme"
     },
     "nvim-treesitter": {
-      "rev": "8fecb462",
+      "rev": "4a9f5797",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -139,7 +143,7 @@
       "src": "https://github.com/lumen-oss/rtp.nvim"
     },
     "snacks.nvim": {
-      "rev": "9b22e97",
+      "rev": "4d9666e",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "tardis.nvim": {

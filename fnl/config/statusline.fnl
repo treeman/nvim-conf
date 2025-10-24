@@ -15,11 +15,6 @@
                                       ""
                                       "...")) str)))
 
-; TODO reimplement when blog connection works again.
-; local function server_info()
-;   return require("blog.server").blog_status() .. lsp_info()
-; end
-;
 (λ spell []
   (if (vim.opt.spell:get)
       (table.concat (vim.opt.spelllang:get) ",")
