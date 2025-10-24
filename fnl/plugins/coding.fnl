@@ -14,9 +14,7 @@
  ;; Treesitter
  {:src "https://github.com/nvim-treesitter/nvim-treesitter"
   :version :main
-  ;; This isn't quite good as we'd only want to do this after it's been built
-  ;; but this is always run after load...
-  :after #(vim.cmd "TSUpdate")}
+  :after_build #(vim.cmd "TSUpdate")}
  ;; Git
  {:src "https://github.com/sindrets/diffview.nvim" :dep_of :neogit}
  {:src "https://github.com/isakbm/gitgraph.nvim" :dep_of :neogit}

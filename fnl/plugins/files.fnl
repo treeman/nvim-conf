@@ -16,6 +16,9 @@
            ;; Not sure how to use snacks.picker for this...?
            (telescope.load_extension "projects")
            (telescope.load_extension "fzf"))}
+ {:src "https://github.com/dmtrKovalenko/fff.nvim"
+  :on_require :fff
+  :build ["cargo" "build" "--release"]}
  ;; Drawer
  {:src "https://github.com/A7Lavinraj/fyler.nvim"
   :on_require :fyler
