@@ -13,6 +13,8 @@
                                         :layout_config {:horizontal {:preview_width 0.5}
                                                         :width {:padding 5}}
                                         :path_display ["filename_first"]}})
+           ;; Not sure how to use snacks.picker for this...?
+           (telescope.load_extension "projects")
            (telescope.load_extension "fzf"))}
  ;; Drawer
  {:src "https://github.com/A7Lavinraj/fyler.nvim"
@@ -44,4 +46,26 @@
                                       "hgcommit"
                                       "svn"
                                       "toggleterm"]
-          :lastplace_open_folds true}}]
+          :lastplace_open_folds true}}
+ ;; Projects and rooting
+ {:src "https://github.com/DrKJeff16/project.nvim"
+  :on_require :project
+  :lazy false
+  :setup {;; Workaround for some LSPs using ~ as root
+          :ignore_lsp ["ts_ls" "cssls" "html"]
+          :silent_chdir true
+          :log {:enabled false}
+          :scope_chdir "win"
+          :on_attach (λ [dir _method]
+                       (vim.notify (.. "cwd " dir)))
+          :patterns [".git"
+                     "_darcs"
+                     ".hg"
+                     ".bzr"
+                     ".svn"
+                     "Makefile"
+                     "package.json"
+                     "rocks.toml"
+                     "lazy-lock.json"
+                     "nvim-pack-lock.json"]}
+  :event ["BufReadPost" "BufNewFile"]}]

@@ -21,7 +21,7 @@
       "src": "https://github.com/xzbdmw/colorful-menu.nvim"
     },
     "conform.nvim": {
-      "rev": "235dd79",
+      "rev": "9fd3d5e",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "css-vars.nvim": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/sindrets/diffview.nvim"
     },
     "fennel": {
-      "rev": "e7f7d89",
+      "rev": "8d2f856",
       "src": "https://git.sr.ht/~technomancy/fennel"
     },
     "fyler.nvim": {
@@ -77,12 +77,12 @@
       "src": "https://github.com/savq/melange-nvim"
     },
     "mini.nvim": {
-      "rev": "cf32454",
+      "rev": "64a23d0",
       "src": "https://github.com/nvim-mini/mini.nvim",
       "version": "'main'"
     },
     "neogit": {
-      "rev": "0f48491a",
+      "rev": "c6d00913",
       "src": "https://github.com/NeogitOrg/neogit"
     },
     "nvim-jdtls": {
@@ -94,11 +94,11 @@
       "src": "https://github.com/ethanholz/nvim-lastplace"
     },
     "nvim-laurel": {
-      "rev": "b197317",
+      "rev": "9241fdd",
       "src": "https://github.com/aileot/nvim-laurel"
     },
     "nvim-lspconfig": {
-      "rev": "e5c61b0",
+      "rev": "ececa53",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -130,12 +130,16 @@
       "rev": "b7404d3",
       "src": "https://github.com/nvim-lua/popup.nvim"
     },
+    "project.nvim": {
+      "rev": "aba494f",
+      "src": "https://github.com/DrKJeff16/project.nvim"
+    },
     "rtp.nvim": {
       "rev": "494ddfc",
       "src": "https://github.com/lumen-oss/rtp.nvim"
     },
     "snacks.nvim": {
-      "rev": "471eb03",
+      "rev": "9b22e97",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "tardis.nvim": {
