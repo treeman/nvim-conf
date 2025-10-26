@@ -208,16 +208,6 @@
 (map! :n "<leader>u" #(: (require :undotree) :open {:command "topleft 30vnew"})
       {:desc "Undotree"})
 
-; -- Edit files in workspace
-; map("n", "<leader>ed", ":Oil .<CR>", { desc = "Edit workspace" })
-; -- Edit files in within the current directory
-; map(
-;   "n",
-;   "<leader>e.",
-;   ":Oil <C-R>=expand('%:p:h')<CR><CR>",
-;   { desc = "Edit directory of buffer" }
-; )
-;
 ; map("n", "<leader>t", ":Trouble cascade toggle<cr>", { desc = "Diagnostics" })
 ;
 ; -- Spell

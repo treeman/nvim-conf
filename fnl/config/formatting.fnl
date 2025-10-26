@@ -58,6 +58,7 @@
                                    :mysql ["pg_format"]
                                    :plsql ["pg_format"]
                                    :elixir ["mix"]
+                                   ; :djot ["injected"]
                                    :heex ["mix"]}
                 :format_on_save format_on_save
                 :formatters {:java_style {:command "astyle"
@@ -65,3 +66,5 @@
                                                  "--style=google"
                                                  "--mode=java"]}
                              :fnlfmt {:command "fnlfmt"}}})
+
+; :injected (require :formatters.injected)}})

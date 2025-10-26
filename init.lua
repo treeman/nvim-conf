@@ -1,5 +1,23 @@
 vim.loader.enable()
 
+-- FIXME this still crashes...
+-- Clear Fennel cache when Fennel dependencies are changed.
+vim.api.nvim_create_autocmd("PackChanged", {
+	callback = function(event)
+		if not vim.list_contains({ "update", "install" }, event.data.kind) then
+			return
+		end
+
+		local name = event.data.spec.name
+
+		if name == "nvim-thyme" or name == "nvim-laurel" then
+			require("thyme").setup()
+			vim.cmd("ThymeCacheClear")
+		end
+	end,
+	group = vim.api.nvim_create_augroup("init.lua", { clear = true }),
+})
+
 -- vim.pack installs into `~/.local/share/nvim/site/pack/core/opt/` by default
 -- while adding them to &runtimepath.
 vim.pack.add({

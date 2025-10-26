@@ -82,5 +82,7 @@
   :event [:BufReadPost :BufNewFile]
   :before #(g! :matchup_matchparen_offscreen {:method "popup"})}
  ;; Language specific plugins]
- {:src "https://github.com/mfussenegger/nvim-jdtls" :ft "java"}
+ {:src "https://github.com/mfussenegger/nvim-jdtls"
+  :ft "java"
+  :on_require :jdtls}
  {:src "https://github.com/otherjoel/vim-pollen" :ft "pollen"}]

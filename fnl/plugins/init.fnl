@@ -42,7 +42,7 @@
 
 (λ transform_spec [spec]
   "Transform a vim.pack spec and move lze arguments into `data`
-   and create an `after` hook if `setup` is specified."
+   and create an `after` hook for simple setup or builds"
   (case spec
     {}
     (do

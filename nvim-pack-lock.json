@@ -98,7 +98,7 @@
       "src": "https://github.com/ethanholz/nvim-lastplace"
     },
     "nvim-laurel": {
-      "rev": "9241fdd",
+      "rev": "9b766d8",
       "src": "https://github.com/aileot/nvim-laurel"
     },
     "nvim-lspconfig": {

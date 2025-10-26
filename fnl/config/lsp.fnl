@@ -6,29 +6,15 @@
 (local mason-lspconfig (require :mason-lspconfig))
 (mason-lspconfig.setup {:automatic_enable true})
 
-;; Maybe we do something smarter for rust_analayzer?
-; :automatic_enable {
-;                     :exclude {}
-;                             "rust_analyzer"
-;                             "jdtls"}})
-
 (vim.diagnostic.config {:virtual_text false
                         :severity_sort true
                         :float {:scope "cursor"}})
 
 (vim.lsp.inlay_hint.enable true)
 
-;; We don't want objective-c and objective-cpp
+;; I don't want objective-c and objective-cpp
 (vim.lsp.config "clangd" {:filetypes {"c" "cpp"}})
 
-(vim.lsp.config "expert"
-                {:cmd ["expert"]
-                 :root_markers ["mix.exs" ".git"]
-                 :filetypes ["elixir" "eelixir" "heex"]})
-
-(vim.lsp.enable "expert")
-
-;; These are default bindings in Neovim but they don't open the diagnostic floats immediately.
 ;; These doesn't work!
 ; (map! "n" "]d"
 ;       #(do
@@ -42,6 +28,7 @@
 ;          (vim.diagnostic.open_float {:focusable false}))
 ;       {:silent true :desc "Prev diagnostic"})
 
+;; These are default bindings in Neovim but they don't open the diagnostic floats immediately.
 ;; These deprecated ones does work...
 (map! "n" "]d" vim.diagnostic.goto_next {:silent true :desc "Next diagnostic"})
 (map! "n" "[d" vim.diagnostic.goto_prev {:silent true :desc "Prev diagnostic"})
