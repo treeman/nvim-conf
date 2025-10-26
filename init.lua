@@ -1,7 +1,8 @@
 vim.loader.enable()
 
--- FIXME this still crashes...
 -- Clear Fennel cache when Fennel dependencies are changed.
+local rebuild_thyme = false
+
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(event)
 		if not vim.list_contains({ "update", "install" }, event.data.kind) then
@@ -11,8 +12,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 		local name = event.data.spec.name
 
 		if name == "nvim-thyme" or name == "nvim-laurel" then
-			require("thyme").setup()
-			vim.cmd("ThymeCacheClear")
+			rebuild_thyme = true
 		end
 	end,
 	group = vim.api.nvim_create_augroup("init.lua", { clear = true }),
@@ -39,6 +39,13 @@ end)
 -- Setup the compile cache path that thyme requires.
 local thyme_cache_prefix = vim.fn.stdpath("cache") .. "/thyme/compiled"
 vim.opt.rtp:prepend(thyme_cache_prefix)
+
+-- Rebuild thyme cache after `vim.pack.add` to avoid dependency issues
+-- and to make sure all packages are loaded.
+if rebuild_thyme then
+	require("thyme").setup()
+	vim.cmd("ThymeCacheClear")
+end
 
 -- Load the rest of the config with transparent fennel support.
 require("config")

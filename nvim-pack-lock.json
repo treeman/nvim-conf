@@ -13,7 +13,7 @@
       "src": "https://github.com/ribru17/blink-cmp-spell"
     },
     "blink.cmp": {
-      "rev": "d93e01a",
+      "rev": "8743384",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "colorful-menu.nvim": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/sindrets/diffview.nvim"
     },
     "fennel": {
-      "rev": "8d2f856",
+      "rev": "90d6fb3",
       "src": "https://git.sr.ht/~technomancy/fennel"
     },
     "fff.nvim": {
@@ -69,7 +69,7 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "83db017",
+      "rev": "1d77bd8",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -81,7 +81,7 @@
       "src": "https://github.com/savq/melange-nvim"
     },
     "mini.nvim": {
-      "rev": "64a23d0",
+      "rev": "d1a9158",
       "src": "https://github.com/nvim-mini/mini.nvim",
       "version": "'main'"
     },
@@ -98,11 +98,11 @@
       "src": "https://github.com/ethanholz/nvim-lastplace"
     },
     "nvim-laurel": {
-      "rev": "9b766d8",
+      "rev": "9769371",
       "src": "https://github.com/aileot/nvim-laurel"
     },
     "nvim-lspconfig": {
-      "rev": "ececa53",
+      "rev": "a9b2fb5",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -114,12 +114,12 @@
       "src": "https://github.com/aileot/nvim-thyme"
     },
     "nvim-treesitter": {
-      "rev": "4a9f5797",
+      "rev": "98fe644c",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "nvim-web-devicons": {
-      "rev": "b8221e4",
+      "rev": "8dcb311",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "parinfer-rust": {
@@ -135,7 +135,7 @@
       "src": "https://github.com/nvim-lua/popup.nvim"
     },
     "project.nvim": {
-      "rev": "aba494f",
+      "rev": "780f8d8",
       "src": "https://github.com/DrKJeff16/project.nvim"
     },
     "rtp.nvim": {
@@ -143,7 +143,7 @@
       "src": "https://github.com/lumen-oss/rtp.nvim"
     },
     "snacks.nvim": {
-      "rev": "4d9666e",
+      "rev": "f33aa20",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "tardis.nvim": {

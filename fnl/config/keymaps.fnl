@@ -76,10 +76,10 @@
         (fyler.open {:dir (vim.fn.expand "%:p:h")}))
       {:desc "Edit directory of buffer"})
 
-;; Try out fff.nvim as our file picker
 (map! "n" "<leader>/" #(: (require :telescope.builtin) :live_grep)
       {:silent true :desc "Find in files"})
 
+;; Try out fff.nvim as our file picker
 (map! "n" "<leader>f" #(: (require :fff) :find_files)
       {:silent true :desc "Find files"})
 
