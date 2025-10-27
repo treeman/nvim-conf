@@ -84,6 +84,9 @@
 (hi! :BlinkCmpKindTypeParameter {:link "@lsp.type.typeParameter"})
 (hi! :BlinkCmpSource {:link "@comment"})
 
+; I'm annoyed at how the snacks picker looks when it's all `NormalFloat`
+(hi! :NormalFloat {:link "Normal"})
+
 ; Neotest colors
 (hi! :NeotestAdapterName {:link "Conceal"})
 (hi! :NeoTestIndent {:link "Conceal"})

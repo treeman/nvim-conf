@@ -17,6 +17,8 @@
            (telescope.load_extension "projects")
            (telescope.load_extension "fzf"))}
  {:src "https://github.com/dmtrKovalenko/fff.nvim"
+  ;; It's just slower than the snacks picker
+  :enabled false
   :on_require :fff
   :build ["cargo" "build" "--release"]}
  ;; Drawer

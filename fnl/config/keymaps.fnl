@@ -76,77 +76,35 @@
         (fyler.open {:dir (vim.fn.expand "%:p:h")}))
       {:desc "Edit directory of buffer"})
 
-(map! "n" "<leader>/" #(: (require :telescope.builtin) :live_grep)
-      {:silent true :desc "Find in files"})
+(local snacks (require :snacks))
+(map! :n :<leader>b #(snacks.picker.buffers))
+(map! :n :<leader>o #(snacks.picker.recent) {:silent true :desc "Old files"})
+(map! :n :<leader>r #(snacks.picker.resume) {:silent true :desc "Resume pick"})
+(map! :n "<leader>f" #(snacks.picker.files) {:silent true :desc "Find files"})
+(map! :n "<leader>F" #(snacks.picker.files {:cwd (vim.fn.expand "%:p:h")})
+      {:silent true :desc "Find files from current file"})
 
-;; Try out fff.nvim as our file picker
-(map! "n" "<leader>f" #(: (require :fff) :find_files)
-      {:silent true :desc "Find files"})
+(map! :n "<leader>ec" #(snacks.picker.files {:cwd (vim.fn.stdpath "config")})
+      {:silent true :desc "Find config file"})
 
-(map! "n" "<leader>F" #(: (require :fff) :find_files_in_dir
-                          (vim.fn.expand "%:p:h"))
-      {:silent true :desc "Find files from local dir"})
+(map! :n "gb" #(snacks.picker.git_branches) {:silent true :desc "Git branches"})
+(map! :n "gl" #(snacks.picker.git_log) {:silent true :desc "Git log"})
+(map! :n "gp" #(snacks.picker.projects) {:silent true :desc "Projcts"})
 
-(map! "n" "<leader>ec" #(: (require :fff) :find_files_in_dir
-                           (vim.fn.stdpath "config"))
-      {:silent true :desc "Find files"})
-
-; (map! "n" "<leader>f" #(: (require :telescope.builtin) :find_files)
-;       {:silent true :desc "Find files"})
-; (map! "n" "<leader>F" #(: (require :telescope.builtin) :find_files
-;                           {:cwd (vim.fn.expand "%:p:h")})
-;       {:silent true :desc "Find files"})
-; (map! "n" "<leader>F"
-;       (λ []
-;         (local builtin (require :telescope.builtin))
-;         (builtin.find_files {:cwd (vim.fn.expand "%:p:h")}))
-;       {:silent true :desc "Find files"})
-; (map! "n" "<leader>ec"
-;       #(: (require :telescope.builtin) :find_files
-;           {:cwd (vim.fn.stdpath "config")})
-;       {:silent true :desc "Find files"})
-
-(map! "n" "<leader>b" #(: (require :telescope.builtin) :buffers)
-      {:silent true :desc "Buffers"})
-
-(map! "n" "<leader>o" #(: (require :telescope.builtin) :oldfiles)
-      {:silent true :desc "Old files"})
-
-(map! "n" "gb" #(: (require :telescope.builtin) :git_branches)
-      {:silent true :desc "Git branches"})
-
-(map! "n" "z=" #(: (require :telescope.builtin) :spell_suggest)
-      {:silent true :desc "Spell suggest"})
-
-(map! "n" "<leader>hh" #(: (require :telescope.builtin) :help_tags)
-      {:silent true :desc "Help tags"})
+(map! :n "<leader>/" #(snacks.picker.grep) {:silent true :desc "Grep"})
+(map! :n "z=" #(snacks.picker.spelling) {:silent true :desc "Spell suggest"})
+(map! :n "<leader>hh" #(snacks.picker.help) {:silent true :desc "Help"})
+(map! :n "<leader>hi" #(snacks.picker.highlights)
+      {:silent true :desc "Highlights"})
 
 ;; Telescoping into a personal knowledge base is really pleasant,
 (λ find_org_file [base_folder]
-  (local Path (require :plenary.path))
   (local folder (.. (vim.fn.expand "~/org/") base_folder "/"))
-  ;; Archive can be gross, need to explicitly ask for it, otherwise we'll hide it.
-  (local ignore_files (if (not= base_folder "archive")
-                          ["^archive/"]
-                          []))
-
-  (λ attach [prompt_bufnr map]
-    (map! :i :<C-e> (λ []
-                      (local current_picker
-                             (action_state.get_current_picker prompt_bufnr))
-                      (local input
-                             (.. folder (current_picker:_get_prompt) ".dj"))
-                      (local file (Path:new input))
-                      (when (not (file:exists))
-                        (file:touch {:parents true})
-                        (actions.close prompt_bufnr)
-                        (vim.cmd (.. "e " file " | w")))))
-    true)
-
-  (local builtin (require :telescope.builtin))
-  (builtin.find_files {:file_ignore_patterns ignore_files
-                       :attach_mappings attach
-                       :cwd folder}))
+  ;; Archive can be gross, hide it by default.
+  (local excluded (if (not= base_folder "archive")
+                      ["archive/*"]
+                      []))
+  (snacks.picker.files {:cwd folder :exclude excluded}))
 
 (map! "n" "<leader><leader>" #(find_org_file "") {:desc "Org files"})
 (map! "n" "<leader>ep" #(find_org_file "projects") {:desc "Org projects"})
