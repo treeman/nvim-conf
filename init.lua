@@ -5,10 +5,6 @@ local rebuild_thyme = false
 
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(event)
-		if not vim.list_contains({ "update", "install" }, event.data.kind) then
-			return
-		end
-
 		local name = event.data.spec.name
 
 		if name == "nvim-thyme" or name == "nvim-laurel" then
@@ -40,10 +36,11 @@ end)
 local thyme_cache_prefix = vim.fn.stdpath("cache") .. "/thyme/compiled"
 vim.opt.rtp:prepend(thyme_cache_prefix)
 
+require("thyme").setup()
+
 -- Rebuild thyme cache after `vim.pack.add` to avoid dependency issues
 -- and to make sure all packages are loaded.
 if rebuild_thyme then
-	require("thyme").setup()
 	vim.cmd("ThymeCacheClear")
 end
 

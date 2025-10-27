@@ -9,9 +9,9 @@
   (tset packs name event)
   (g! :packs_changed packs))
 
-(λ run_build_script [build event]
-  (local path event.data.path)
-  (vim.notify (.. "Run `" (vim.inspect build) "` for " event.data.spec.name)
+(λ run_build_script [build pack]
+  (local path pack.path)
+  (vim.notify (.. "Run `" (vim.inspect build) "` for " pack.spec.name)
               vim.log.levels.INFO)
   (vim.system build {:cwd path}
               (λ [exit_obj]
@@ -22,20 +22,28 @@
                   (print (vim.inspect build) "failed in" path
                          (vim.inspect exit_obj))))))
 
-(λ call_build_cb [build event]
-  (vim.notify (.. "Call build hook for " event.data.spec.name)
-              vim.log.levels.INFO)
-  (build event))
+(λ call_build_cb [build pack]
+  (vim.notify (.. "Call build hook for " pack.spec.name) vim.log.levels.INFO)
+  (build pack))
+
+(λ execute_build [pack]
+  (local build (?. pack :spec :data :build))
+  (when build
+    (case (type build)
+      "string" (run_build_script [build] pack)
+      "table" (run_build_script build pack)
+      "function" (call_build_cb build pack))))
+
+(λ execute_after_build [cb name]
+  (vim.notify (.. "Call after_build hook for " name) vim.log.levels.INFO)
+  (cb))
 
 (λ pack_changed [event]
-  (when (vim.list_contains [:update :install] event.data.kind)
-    (set_pack_changed event.data.spec.name event)
-    (local build (?. event :data :spec :data :build))
-    (when build
-      (case (type build)
-        "string" (run_build_script [build] event)
-        "table" (run_build_script build event)
-        "function" (call_build_cb build event))))
+  ;; If we install it'll also trigger an update event...?
+  (when (= event.data.kind :update)
+    (local pack event.data)
+    (set_pack_changed pack.spec.name event)
+    (execute_build pack))
   false)
 
 (augroup! :plugin_init (au! :PackChanged pack_changed))
@@ -69,7 +77,7 @@
         ;; Run `after_build` scripts if a `PackChanged` event
         ;; was run with `install` or `update`.
         (when (and spec.after_build pack_changed_event)
-          (spec.after_build args))
+          (execute_after_build spec.after_build args.name))
         ;; Load user specified `after` if it exists.
         (when spec.after
           (spec.after args)))
@@ -108,6 +116,15 @@
                      acc))))
 
 ; (each [_ v (ipairs specs)] (dbg! v))
+
+;; If we want to rerun all builds.
+(command! :BuildPacks
+          (λ []
+            (each [_ pack (ipairs (vim.pack.get))]
+              (execute_build pack)
+              (local after_build (?. pack :spec :data :after_build))
+              (when after_build
+                (execute_after_build after_build pack.spec.name)))))
 
 ;; Override loader when adding to let lze handle lazy loading
 ;; when specified via the `data` attribute.
