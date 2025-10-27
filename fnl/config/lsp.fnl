@@ -33,23 +33,23 @@
 (map! "n" "]d" vim.diagnostic.goto_next {:silent true :desc "Next diagnostic"})
 (map! "n" "[d" vim.diagnostic.goto_prev {:silent true :desc "Prev diagnostic"})
 
-; NOTE there are other cool possibilities listed in nvim-lspconfig
 (augroup! :my-lsps
           (au! :LspAttach
                (λ [_]
-                 (bmap! :n "<localleader>D" vim.lsp.buf.declaration
+                 (local snacks (require :snacks))
+                 (bmap! :n "<localleader>D" snacks.picker.lsp_declarations
                         {:silent true :desc "Declaration"})
-                 (bmap! :n "<localleader>d" vim.lsp.buf.definition
+                 (bmap! :n "<localleader>d" snacks.picker.lsp_definitions
                         {:silent true :desc "Definition"})
                  (bmap! :n "<localleader>h" vim.lsp.buf.hover
                         {:silent true :desc "Hover"})
                  (bmap! :n "<localleader>s" vim.lsp.buf.signature_help
                         {:silent true :desc "Signature help"})
-                 (bmap! :n "<localleader>r" vim.lsp.buf.references
+                 (bmap! :n "<localleader>r" snacks.picker.lsp_references
                         {:silent true :desc "References"})
-                 (bmap! :n "<localleader>i" vim.lsp.buf.implementation
+                 (bmap! :n "<localleader>i" snacks.picker.lsp_implementations
                         {:silent true :desc "Implementation"})
-                 (bmap! :n "<localleader>t" vim.lsp.buf.type_definition
+                 (bmap! :n "<localleader>t" snacks.picker.lsp_type_definitions
                         {:silent true :desc "Type definition"})
                  (bmap! :n "<localleader>x" vim.lsp.buf.code_action
                         {:silent true :desc "Code action"})
@@ -58,7 +58,11 @@
                  (bmap! :n "<localleader>l"
                         #(vim.diagnostic.open_float {:focusable false})
                         {:silent true :desc "Diagnostics"})
-                 (bmap! :n "<localleader>I" vim.lsp.buf.incoming_calls
+                 (bmap! :n "<localleader>I" snacks.picker.lsp_incoming_calls
                         {:silent true :desc "Incoming calls"})
-                 (bmap! :n "<localleader>O" vim.lsp.buf.outgoing_calls
-                        {:silent true :desc "Outgoing calls"}))))
+                 (bmap! :n "<localleader>O" snacks.picker.lsp_outgoing_calls
+                        {:silent true :desc "Outgoing calls"})
+                 (bmap! :n "<localleader>S" snacks.picker.lsp_symbols
+                        {:silent true :desc "LSP symbols"})
+                 (bmap! :n "<localleader>w" snacks.picker.lsp_workspace_symbols
+                        {:silent true :desc "LSP workspace symbols"}))))

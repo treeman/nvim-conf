@@ -79,7 +79,7 @@
 (local snacks (require :snacks))
 (map! :n :<leader>b #(snacks.picker.buffers))
 (map! :n :<leader>o #(snacks.picker.recent) {:silent true :desc "Old files"})
-(map! :n :<leader>r #(snacks.picker.resume) {:silent true :desc "Resume pick"})
+(map! :n :<leader>er #(snacks.picker.resume) {:silent true :desc "Resume pick"})
 (map! :n "<leader>f" #(snacks.picker.files) {:silent true :desc "Find files"})
 (map! :n "<leader>F" #(snacks.picker.files {:cwd (vim.fn.expand "%:p:h")})
       {:silent true :desc "Find files from current file"})
@@ -166,8 +166,41 @@
 (map! :n "<leader>u" #(: (require :undotree) :open {:command "topleft 30vnew"})
       {:desc "Undotree"})
 
-; map("n", "<leader>t", ":Trouble cascade toggle<cr>", { desc = "Diagnostics" })
-;
+(map! :n "<leader>t" #(do
+                        (local trouble (require :trouble))
+                        (trouble.toggle "diagnostics"))
+      {:desc "Trouble"})
+
+(map! :n "<leader>q" #(do
+                        (local trouble (require :trouble))
+                        (trouble.toggle "quickfix"))
+      {:desc "Trouble"})
+
+(map! :n "<leader>w" #(do
+                        (local trouble (require :trouble))
+                        (trouble.toggle "symbols"))
+      {:desc "Trouble"})
+
+(map! :n "]t" #(do
+                 (local trouble (require :trouble))
+                 (trouble.next {:skip_groups true :jump true}))
+      {:silent true :desc "Trouble next"})
+
+(map! :n "[t" #(do
+                 (local trouble (require :trouble))
+                 (trouble.prev {:skip_groups true :jump true}))
+      {:silent true :desc "Trouble prev"})
+
+(map! :n "]T" #(do
+                 (local trouble (require :trouble))
+                 (trouble.last {:skip_groups true :jump true}))
+      {:silent true :desc "Trouble last"})
+
+(map! :n "[T" #(do
+                 (local trouble (require :trouble))
+                 (trouble.first {:skip_groups true :jump true}))
+      {:silent true :desc "Trouble first"})
+
 ; -- Spell
 ; map("n", "ss", function()
 ;   vim.opt.spell = not (vim.opt.spell:get())
@@ -208,30 +241,6 @@
 ;   desc = "Replace selection",
 ; })
 ;
-; map("n", "]t", function()
-;   require("trouble").next({ skip_groups = true, jump = true })
-; end, {
-;   desc = "Next trouble",
-;   silent = true,
-; })
-; map("n", "[t", function()
-;   require("trouble").prev({ skip_groups = true, jump = true })
-; end, {
-;   desc = "Prev trouble",
-;   silent = true,
-; })
-; map("n", "]T", function()
-;   require("trouble").last({ skip_groups = true, jump = true })
-; end, {
-;   desc = "Last trouble",
-;   silent = true,
-; })
-; map("n", "[T", function()
-;   require("trouble").first({ skip_groups = true, jump = true })
-; end, {
-;   desc = "First trouble",
-;   silent = true,
-; })
 ;
 ; local old_gx = vim.fn.maparg("gx", "n", nil, true)
 ; map("n", "gx", require("custom.open").gx_extended(old_gx.callback), { desc = old_gx.desc })

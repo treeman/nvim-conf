@@ -81,6 +81,20 @@
  {:src "https://github.com/andymass/vim-matchup"
   :event [:BufReadPost :BufNewFile]
   :before #(g! :matchup_matchparen_offscreen {:method "popup"})}
+ {:src "https://github.com/folke/trouble.nvim"
+  :cmd :Trouble
+  :on_require :trouble
+  :setup {:modes {:cascade {:mode "diagnostics"
+                            :filter (λ [items]
+                                      (var severity
+                                           vim.diagnostic.severity.HINT)
+                                      (each [_ item (ipairs items)]
+                                        (set severity
+                                             (math.min severity item.severity)))
+                                      (vim.tbl_filter (λ [item]
+                                                        (= item.severity
+                                                           severity))
+                                                      items))}}}}
  ;; Language specific plugins]
  {:src "https://github.com/mfussenegger/nvim-jdtls"
   :ft "java"

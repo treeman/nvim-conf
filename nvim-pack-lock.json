@@ -170,6 +170,10 @@
       "rev": "19d461d",
       "src": "https://github.com/folke/todo-comments.nvim"
     },
+    "trouble.nvim": {
+      "rev": "76030c5",
+      "src": "https://github.com/folke/trouble.nvim"
+    },
     "vim-cool": {
       "rev": "9ea940c",
       "src": "https://github.com/romainl/vim-cool"
