@@ -15,6 +15,10 @@
  {:src "https://github.com/nvim-treesitter/nvim-treesitter"
   :version :main
   :after_build #(vim.cmd "TSUpdate")}
+ {:src "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+  :version :main
+  :on_require :nvim-treesitter-textobjects
+  :setup {:select {:lookahead true}}}
  ;; Git
  {:src "https://github.com/sindrets/diffview.nvim" :dep_of :neogit}
  {:src "https://github.com/isakbm/gitgraph.nvim" :dep_of :neogit}

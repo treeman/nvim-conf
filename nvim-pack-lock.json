@@ -118,6 +118,11 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
+    "nvim-treesitter-textobjects": {
+      "rev": "1b2d85d",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+      "version": "'main'"
+    },
     "nvim-web-devicons": {
       "rev": "8dcb311",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
