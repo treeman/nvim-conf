@@ -8,30 +8,12 @@
 
 (vim.diagnostic.config {:virtual_text false
                         :severity_sort true
-                        :float {:scope "cursor"}})
+                        :virtual_lines {:current_line true}})
 
 (vim.lsp.inlay_hint.enable true)
 
 ;; I don't want objective-c and objective-cpp
 (vim.lsp.config "clangd" {:filetypes {"c" "cpp"}})
-
-;; These doesn't work!
-; (map! "n" "]d"
-;       #(do
-;          (vim.diagnostic.jump {:count 1})
-;          (vim.diagnostic.open_float {:focusable false}))
-;       {:silent true :desc "Next diagnostic"})
-
-; (map! "n" "[d"
-;       #(do
-;          (vim.diagnostic.jump {:count -1})
-;          (vim.diagnostic.open_float {:focusable false}))
-;       {:silent true :desc "Prev diagnostic"})
-
-;; These are default bindings in Neovim but they don't open the diagnostic floats immediately.
-;; These deprecated ones does work...
-(map! "n" "]d" vim.diagnostic.goto_next {:silent true :desc "Next diagnostic"})
-(map! "n" "[d" vim.diagnostic.goto_prev {:silent true :desc "Prev diagnostic"})
 
 (augroup! :my-lsps
           (au! :LspAttach
