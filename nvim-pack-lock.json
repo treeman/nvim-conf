@@ -56,6 +56,10 @@
       "rev": "20ad441",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "grug-far.nvim": {
+      "rev": "3e72397",
+      "src": "https://github.com/MagicDuck/grug-far.nvim"
+    },
     "lualine.nvim": {
       "rev": "3946f01",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
@@ -146,6 +150,10 @@
     "rtp.nvim": {
       "rev": "494ddfc",
       "src": "https://github.com/lumen-oss/rtp.nvim"
+    },
+    "search-replace.nvim": {
+      "rev": "d92290a",
+      "src": "https://github.com/roobert/search-replace.nvim"
     },
     "snacks.nvim": {
       "rev": "ecde81f",

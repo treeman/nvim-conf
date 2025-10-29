@@ -21,6 +21,14 @@
  ;  :enabled false
  ;  :on_require :fff
  ;  :build ["cargo" "build" "--release"]}
+ ;; Query replace
+ {:src "https://github.com/MagicDuck/grug-far.nvim"
+  :on_require :grug-far
+  :setup {}}
+ {:src "https://github.com/roobert/search-replace.nvim"
+  :event [:VimEnter]
+  :on_require :search-replace
+  :setup {}}
  ;; Drawer
  {:src "https://github.com/A7Lavinraj/fyler.nvim"
   :on_require :fyler

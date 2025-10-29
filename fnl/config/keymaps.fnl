@@ -227,19 +227,6 @@
   (map! :nxo (.. "[" (string.upper v.key)) #(ts_move.goto_previous_end v.query)
         {:desc v.desc}))
 
-; -- Some symbolic keymaps that don't have a string.upper()
-; (map! :nxo "]=" #(ts_move.goto_next_start "@statement.outer")
-;       {:desc "goto next statement"})
-
-; (map! :nxo "[=" #(ts_move.goto_previous_start "@statement.outer")
-;       {:desc "goto previous statement"})
-
-; (map! :nxo "]," #(ts_move.goto_next_start "@parameter.outer")
-;       {:desc "goto next parameter"})
-
-; (map! :nxo "[," #(ts_move.goto_previous_start "@parameter.outer")
-;       {:desc "goto previous parameter"})
-
 (local ts_repeat_move (require "nvim-treesitter-textobjects.repeatable_move"))
 ;; Make the keys repeatable
 (map! :nxo ";" ts_repeat_move.repeat_last_move)
@@ -305,6 +292,25 @@
   (map! :xo v.key #(ts_select.select_textobject v.query "textobjects")
         {:desc v.desc}))
 
+;; Global query replace
+(map! :vn "<leader>rr" #(: (require :grug-far) :open))
+
+;; Replace word under cursor
+(map! :n "<leader>rw" (<Cmd> :SearchReplaceSingleBufferCWord)
+      {:desc "Replace CWord"})
+
+;; Replace WORD under cursor
+(map! :n "<leader>rW" (<Cmd> :SearchReplaceSingleBufferCWORD)
+      {:desc "Replace CWORD"})
+
+;; Replace "expression" (includes dots, not sure how useful this is)
+(map! :n "<leader>re" (<Cmd> :SearchReplaceSingleBufferCExpr)
+      {:desc "Replace CExpr"})
+
+;; Replace visual selection
+(map! :v "<C-r>" (<Cmd> :SearchReplaceSingleBufferVisualSelection)
+      {:desc "Replace selection"})
+
 ; -- Spell
 ; map("n", "ss", function()
 ;   vim.opt.spell = not (vim.opt.spell:get())
@@ -319,31 +325,6 @@
 ;     vim.wo.conceallevel = 0
 ;   end
 ; end, { silent = true, desc = "Toggle conceal" })
-;
-;
-; map("n", "<leader>rq", function()
-;   require("replacer").run()
-; end, {
-;   silent = true,
-;   desc = "Make quickfix editable for replacing in",
-; })
-
-; -- Replace word under cursor
-; map("n", "<leader>rw", "<cmd>SearchReplaceSingleBufferCWord<cr>", {
-;   desc = "Replace CWord",
-; })
-; -- Replace WORD under cursor
-; map("n", "<leader>rW", "<cmd>SearchReplaceSingleBufferCWORD<cr>", {
-;   desc = "Replace CWORD",
-; })
-; -- Replace "expression" (includes dots, not sure how useful this is)
-; map("n", "<leader>re", "<cmd>SearchReplaceSingleBufferCExpr<cr>", {
-;   desc = "Replace CExpr",
-; })
-; -- Replace visual selection
-; map("v", "<C-r>", "<CMD>SearchReplaceSingleBufferVisualSelection<CR>", {
-;   desc = "Replace selection",
-; })
 ;
 ;
 ; local old_gx = vim.fn.maparg("gx", "n", nil, true)
