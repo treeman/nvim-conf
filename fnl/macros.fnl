@@ -39,6 +39,12 @@
           args)
         args)))
 
+(fn m [m func ...]
+  "Call a function on a module"
+  (assert-compile (sym? m) "expected module name")
+  (assert-compile (sym? func) "expected function name")
+  `((. (require ,(tostring m)) ,(tostring func)) ,...))
+
 {: tx!
  : let!
  : g!
@@ -60,4 +66,5 @@
  : set!
  : highlight!
  : hi!
- : dbg!}
+ : dbg!
+ : m}

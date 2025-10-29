@@ -2,6 +2,8 @@
 (local util (require :util))
 (local cybershard (util.cybershard_keyboard?))
 
+;; Test
+
 ; Use ( as [ everywhere for custom layouts that has ()
 ; on the base layer, but [] are hidden.
 (when cybershard
@@ -65,36 +67,34 @@
 (map! "n" "J" "mzJ`z")
 
 ;; Drawer
-(map! :n "<leader>d" (λ []
-                       (local fyler (require :fyler))
-                       (fyler.toggle)) {:desc "Drawer"})
+(map! :n "<leader>d" #(m fyler toggle) {:desc "Drawer"})
 
 ; Edit files in current directory
-(map! :n "<leader>e."
-      (λ []
-        (local fyler (require :fyler))
-        (fyler.open {:dir (vim.fn.expand "%:p:h")}))
+(map! :n "<leader>e." #(m fyler open {:dir (vim.fn.expand "%:p:h")})
       {:desc "Edit directory of buffer"})
 
-(local snacks (require :snacks))
-(map! :n :<leader>b #(snacks.picker.buffers))
-(map! :n :<leader>o #(snacks.picker.recent) {:silent true :desc "Old files"})
-(map! :n :<leader>er #(snacks.picker.resume) {:silent true :desc "Resume pick"})
-(map! :n "<leader>f" #(snacks.picker.files) {:silent true :desc "Find files"})
-(map! :n "<leader>F" #(snacks.picker.files {:cwd (vim.fn.expand "%:p:h")})
+(map! :n :<leader>b #(m snacks.picker buffers))
+(map! :n :<leader>o #(m snacks.picker recent) {:silent true :desc "Old files"})
+(map! :n :<leader>er #(m snacks.picker resume)
+      {:silent true :desc "Resume pick"})
+
+(map! :n "<leader>f" #(m snacks.picker files) {:silent true :desc "Find files"})
+(map! :n "<leader>F" #(m snacks.picker files {:cwd (vim.fn.expand "%:p:h")})
       {:silent true :desc "Find files from current file"})
 
-(map! :n "<leader>ec" #(snacks.picker.files {:cwd (vim.fn.stdpath "config")})
+(map! :n "<leader>ec" #(m snacks.picker files {:cwd (vim.fn.stdpath "config")})
       {:silent true :desc "Find config file"})
 
-(map! :n "gb" #(snacks.picker.git_branches) {:silent true :desc "Git branches"})
-(map! :n "gl" #(snacks.picker.git_log) {:silent true :desc "Git log"})
-(map! :n "gp" #(snacks.picker.projects) {:silent true :desc "Projcts"})
+(map! :n "gb" #(m snacks.picker git_branches)
+      {:silent true :desc "Git branches"})
 
-(map! :n "<leader>/" #(snacks.picker.grep) {:silent true :desc "Grep"})
-(map! :n "z=" #(snacks.picker.spelling) {:silent true :desc "Spell suggest"})
-(map! :n "<leader>hh" #(snacks.picker.help) {:silent true :desc "Help"})
-(map! :n "<leader>hi" #(snacks.picker.highlights)
+(map! :n "gl" #(m snacks.picker git_log) {:silent true :desc "Git log"})
+(map! :n "gp" #(m snacks.picker projects) {:silent true :desc "Projcts"})
+
+(map! :n "<leader>/" #(m snacks.picker grep) {:silent true :desc "Grep"})
+(map! :n "z=" #(m snacks.picker spelling) {:silent true :desc "Spell suggest"})
+(map! :n "<leader>hh" #(m snacks.picker help) {:silent true :desc "Help"})
+(map! :n "<leader>hi" #(m snacks.picker highlights)
       {:silent true :desc "Highlights"})
 
 ;; Telescoping into a personal knowledge base is really pleasant,
@@ -104,15 +104,14 @@
   (local excluded (if (not= base_folder "archive")
                       ["archive/*"]
                       []))
-  (snacks.picker.files {:cwd folder :exclude excluded}))
+  (m snacks.picker files {:cwd folder :exclude excluded}))
 
 (map! "n" "<leader><leader>" #(find_org_file "") {:desc "Org files"})
 (map! "n" "<leader>ep" #(find_org_file "projects") {:desc "Org projects"})
 (map! "n" "<leader>en" #(find_org_file "notes") {:desc "Org notes"})
 (map! "n" "<leader>eA" #(find_org_file "archive") {:desc "Org archive"})
 
-(map! :n "gw" #(: (require :blog.telescope) :find_markup)
-      {:desc "Find blog content"})
+(map! :n "gw" #(m blog.telescope find_markup) {:desc "Find blog content"})
 
 (λ dial [dir sel]
   (local dial (require :dial.map))
@@ -140,70 +139,38 @@
 (map! :n "gB" (<Cmd> "BlameToggle virtual") {:silent true :desc "Git blame"})
 
 ;; Sometimes the : shortcut work but other times it doesn't...
-(map! :n "]h" #(: (require :gitsigns) :next_hunk) {:desc "Next hunk"})
-(map! :n "[h" #(: (require :gitsigns) :prev_hunk) {:desc "Prev hunk"})
+(map! :n "]h" #(m gitsigns next_hunk) {:desc "Next hunk"})
+(map! :n "[h" #(m gitsigns prev_hunk) {:desc "Prev hunk"})
 
-(map! :n "<leader>hs" (λ [] (local signs (require :gitsigns))
-                        (signs.stage_hunk))
-      {:desc "Stage hunk"})
-
-(map! :n "<leader>hr" (λ [] (local signs (require :gitsigns))
-                        (signs.reset_hunk))
-      {:desc "Reset hunk"})
+(map! :n "<leader>hs" #(m gitsigns stage_hunk) {:desc "Stage hunk"})
+(map! :n "<leader>hr" #(m gitsigns reset_hunk) {:desc "Reset hunk"})
 
 (map! :v "<leader>hs"
-      (λ []
-        (local signs (require :gitsigns))
-        (signs.stage_hunk [(vim.fn.line ".") (vim.fn.line "v")]))
+      #(m gitsigns signs.stage_hunk [(vim.fn.line ".") (vim.fn.line "v")])
       {:desc "Stage hunk"})
 
 (map! :v "<leader>hr"
-      (λ []
-        (local signs (require :gitsigns))
-        (signs.reset_hunk [(vim.fn.line ".") (vim.fn.line "v")]))
+      #(m gitsigns signs.reset_hunk [(vim.fn.line ".") (vim.fn.line "v")])
       {:desc "Reset hunk"})
 
-(map! :n "<leader>u" #(: (require :undotree) :open {:command "topleft 30vnew"})
+(map! :n "<leader>u" #(m undotree open {:command "topleft 30vnew"})
       {:desc "Undotree"})
 
-(map! :n "<leader>t" #(do
-                        (local trouble (require :trouble))
-                        (trouble.toggle "diagnostics"))
-      {:desc "Trouble"})
+(map! :n "<leader>t" #(m trouble toggle "diagnostics") {:desc "Trouble"})
+(map! :n "<leader>q" #(m trouble toggle "quickfix") {:desc "Trouble"})
+(map! :n "<leader>w" #(m trouble toggle "symbols") {:desc "Trouble"})
 
-(map! :n "<leader>q" #(do
-                        (local trouble (require :trouble))
-                        (trouble.toggle "quickfix"))
-      {:desc "Trouble"})
-
-(map! :n "<leader>w" #(do
-                        (local trouble (require :trouble))
-                        (trouble.toggle "symbols"))
-      {:desc "Trouble"})
-
-(map! :n "]t" #(do
-                 (local trouble (require :trouble))
-                 (trouble.next {:skip_groups true :jump true}))
+(map! :n "]t" #(m trouble next {:skip_groups true :jump true})
       {:silent true :desc "Trouble next"})
 
-(map! :n "[t" #(do
-                 (local trouble (require :trouble))
-                 (trouble.prev {:skip_groups true :jump true}))
+(map! :n "[t" #(m trouble prev {:skip_groups true :jump true})
       {:silent true :desc "Trouble prev"})
 
-(map! :n "]T" #(do
-                 (local trouble (require :trouble))
-                 (trouble.last {:skip_groups true :jump true}))
+(map! :n "]T" #(m trouble last {:skip_groups true :jump true})
       {:silent true :desc "Trouble last"})
 
-(map! :n "[T" #(do
-                 (local trouble (require :trouble))
-                 (trouble.first {:skip_groups true :jump true}))
+(map! :n "[T" #(m trouble first {:skip_groups true :jump true})
       {:silent true :desc "Trouble first"})
-
-(map! :nxo "]f"
-      #(: (require :nvim-treesitter-textobjects.move) :goto_next_start
-          "@function.outer" "textobjects"))
 
 ;; Maps [f, ]f, [F, ]F for the different pairs.
 (local ts_move_keys [{:key "f" :query "@function.outer" :desc "goto function"}
@@ -293,7 +260,7 @@
         {:desc v.desc}))
 
 ;; Global query replace
-(map! :vn "<leader>rr" #(: (require :grug-far) :open))
+(map! :vn "<leader>rr" #(m grug-far open))
 
 ;; Replace word under cursor
 (map! :n "<leader>rw" (<Cmd> :SearchReplaceSingleBufferCWord)

@@ -60,6 +60,10 @@
       "rev": "3e72397",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
+    "lazydev.nvim": {
+      "rev": "c2dfe35",
+      "src": "https://github.com/folke/lazydev.nvim"
+    },
     "lualine.nvim": {
       "rev": "3946f01",
       "src": "https://github.com/nvim-lualine/lualine.nvim"

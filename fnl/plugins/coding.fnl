@@ -103,4 +103,8 @@
  {:src "https://github.com/mfussenegger/nvim-jdtls"
   :ft "java"
   :on_require :jdtls}
- {:src "https://github.com/otherjoel/vim-pollen" :ft "pollen"}]
+ {:src "https://github.com/otherjoel/vim-pollen" :ft "pollen"}
+ {:src "https://github.com/folke/lazydev.nvim"
+  :ft :lua
+  :on_require :lazydev
+  :setup {}}]
