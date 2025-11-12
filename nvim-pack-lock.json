@@ -13,7 +13,7 @@
       "src": "https://github.com/ribru17/blink-cmp-spell"
     },
     "blink.cmp": {
-      "rev": "8743384",
+      "rev": "7d79733",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "colorful-menu.nvim": {
@@ -45,7 +45,7 @@
       "src": "https://github.com/dmtrKovalenko/fff.nvim"
     },
     "fyler.nvim": {
-      "rev": "d6b855c",
+      "rev": "6e725d9",
       "src": "https://github.com/A7Lavinraj/fyler.nvim"
     },
     "gitgraph.nvim": {
@@ -94,7 +94,7 @@
       "version": "'main'"
     },
     "neogit": {
-      "rev": "c6d00913",
+      "rev": "614a6348",
       "src": "https://github.com/NeogitOrg/neogit"
     },
     "nvim-jdtls": {
@@ -160,7 +160,7 @@
       "src": "https://github.com/roobert/search-replace.nvim"
     },
     "snacks.nvim": {
-      "rev": "ecde81f",
+      "rev": "dec29f5",
       "src": "https://github.com/folke/snacks.nvim"
     },
     "tardis.nvim": {
