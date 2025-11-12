@@ -73,7 +73,7 @@
 (map! :n "<leader>e." #(m fyler open {:dir (vim.fn.expand "%:p:h")})
       {:desc "Edit directory of buffer"})
 
-(map! :n :<leader>b #(m snacks.picker buffers))
+(map! :n :<leader>b #(m snacks.picker buffers) {:desc "Buffers"})
 (map! :n :<leader>o #(m snacks.picker recent) {:silent true :desc "Old files"})
 (map! :n :<leader>er #(m snacks.picker resume)
       {:silent true :desc "Resume pick"})
