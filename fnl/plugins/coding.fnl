@@ -75,6 +75,7 @@
   :setup {:ignore "^$"}
   :event [:BufReadPost :BufNewFile]}
  {:src "https://github.com/folke/todo-comments.nvim"
+  :enabled false
   :on_require :todo-comments
   :event [:BufReadPost :BufNewFile]
   ;; Don't require a colon.

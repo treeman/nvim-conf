@@ -32,21 +32,22 @@
  ;; Drawer
  {:src "https://github.com/A7Lavinraj/fyler.nvim"
   :on_require :fyler
-  :setup {:icon_provider "nvim_web_devicons"
-          :default_explorer true
-          :close_on_select false
-          :indentscope {:marker "┆"}
-          :win {:kind "split_left_most"
-                :kind_presets {:split_left_most {:width "40abs" :height "1rel"}}
-                :win_opts {:spell false}}
-          :git_status {:symbols {:Untracked "?"
-                                 :Added "+"
-                                 :Modified "~"
-                                 :Deleted "-"
-                                 :Renamed ">"
-                                 :Copied "*"
-                                 :Conflict "!"
-                                 :Ignored "."}}}}
+  :setup {:integrations {:icon "nvim_web_devicons"}
+          :views {:finder {:close_on_select false
+                           :default_explorer true
+                           :git_status {:symbols {:Untracked "?"
+                                                  :Added "+"
+                                                  :Modified "~"
+                                                  :Deleted "-"
+                                                  :Renamed ">"
+                                                  :Copied "*"
+                                                  :Conflict "!"
+                                                  :Ignored "."}}
+                           :indentscope {:marker "┆"}
+                           :win {:kind "split_left_most"
+                                 :kind_presets {:split_left_most {:width "40abs"
+                                                                  :height "1rel"}}
+                                 :win_opts {:spell false}}}}}}
  ;; Paths
  "https://github.com/nanotee/zoxide.vim"
  {:src "https://github.com/ethanholz/nvim-lastplace"
