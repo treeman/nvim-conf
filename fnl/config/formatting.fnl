@@ -51,7 +51,8 @@
                                    :html ["prettierd"]
                                    :json ["prettierd"]
                                    :yaml ["prettierd"]
-                                   ; :java [ "java_style" ]
+                                   :java {:lsp_format "prefer"}
+                                   ; :java ["java_style"]
                                    ; :toml [ "prettierd" ]
                                    :rust ["rustfmt"]
                                    :sql ["pg_format"]
