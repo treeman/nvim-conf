@@ -17,11 +17,11 @@
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "colorful-menu.nvim": {
-      "rev": "d5b97d2",
+      "rev": "b51a659",
       "src": "https://github.com/xzbdmw/colorful-menu.nvim"
     },
     "conform.nvim": {
-      "rev": "9fd3d5e",
+      "rev": "9b8fa5e",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "css-vars.nvim": {
@@ -29,7 +29,7 @@
       "src": "https://github.com/jdrupal-dev/css-vars.nvim"
     },
     "dial.nvim": {
-      "rev": "f0404ec",
+      "rev": "f97c0c7",
       "src": "https://github.com/monaqa/dial.nvim"
     },
     "diffview.nvim": {
@@ -37,15 +37,15 @@
       "src": "https://github.com/sindrets/diffview.nvim"
     },
     "fennel": {
-      "rev": "90d6fb3",
+      "rev": "110e9ca",
       "src": "https://git.sr.ht/~technomancy/fennel"
     },
     "fff.nvim": {
-      "rev": "e8850c3",
+      "rev": "a4f87bd",
       "src": "https://github.com/dmtrKovalenko/fff.nvim"
     },
     "fyler.nvim": {
-      "rev": "6e725d9",
+      "rev": "b8ddeb8",
       "src": "https://github.com/A7Lavinraj/fyler.nvim"
     },
     "gitgraph.nvim": {
@@ -53,7 +53,7 @@
       "src": "https://github.com/isakbm/gitgraph.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "20ad441",
+      "rev": "5813e48",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "grug-far.nvim": {
@@ -65,11 +65,11 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "lualine.nvim": {
-      "rev": "3946f01",
+      "rev": "47f91c4",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "lze": {
-      "rev": "3c8a768",
+      "rev": "97aeffd",
       "src": "https://github.com/BirdeeHub/lze"
     },
     "marks.nvim": {
@@ -77,11 +77,11 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "1d77bd8",
+      "rev": "3b3571b",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
-      "rev": "ad7146a",
+      "rev": "57e5a8a",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "melange-nvim": {
@@ -89,16 +89,16 @@
       "src": "https://github.com/savq/melange-nvim"
     },
     "mini.nvim": {
-      "rev": "d1a9158",
+      "rev": "6bd3a01",
       "src": "https://github.com/nvim-mini/mini.nvim",
       "version": "'main'"
     },
     "neogit": {
-      "rev": "614a6348",
+      "rev": "d8bf9102",
       "src": "https://github.com/NeogitOrg/neogit"
     },
     "nvim-jdtls": {
-      "rev": "380ac14",
+      "rev": "f73731b",
       "src": "https://github.com/mfussenegger/nvim-jdtls"
     },
     "nvim-lastplace": {
@@ -110,7 +110,7 @@
       "src": "https://github.com/aileot/nvim-laurel"
     },
     "nvim-lspconfig": {
-      "rev": "a9b2fb5",
+      "rev": "ad95655",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -122,12 +122,12 @@
       "src": "https://github.com/aileot/nvim-thyme"
     },
     "nvim-treesitter": {
-      "rev": "738d9ced",
+      "rev": "d3218d98",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "1b2d85d",
+      "rev": "0d7c800",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
@@ -148,7 +148,7 @@
       "src": "https://github.com/nvim-lua/popup.nvim"
     },
     "project.nvim": {
-      "rev": "4a50fdf",
+      "rev": "6ebdb8e",
       "src": "https://github.com/DrKJeff16/project.nvim"
     },
     "rtp.nvim": {
@@ -172,7 +172,7 @@
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
     },
     "telescope.nvim": {
-      "rev": "b4da76b",
+      "rev": "3d757e5",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "tiny-devicons-auto-colors.nvim": {
@@ -180,7 +180,7 @@
       "src": "https://github.com/rachartier/tiny-devicons-auto-colors.nvim"
     },
     "tiny-glimmer.nvim": {
-      "rev": "84f6b0d",
+      "rev": "e83bab2",
       "src": "https://github.com/rachartier/tiny-glimmer.nvim"
     },
     "todo-comments.nvim": {

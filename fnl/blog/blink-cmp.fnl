@@ -41,8 +41,9 @@
                 :col col
                 :row row}
                #(do
-                  (local items (?. $1 :completion :items))
-                  (when items
-                    (callback items)))))
+                  (local items (?. $1 :completion_items))
+                  (callback {:items items
+                             :is_incomplete_backward true
+                             :is_incomplete_forward true}))))
 
 source

@@ -147,6 +147,8 @@ local function close_connection()
 	vim.g.blog_conn = nil
 end
 
+local reply_buffer = nil
+
 local function handle_reply(data)
 	if #data == 1 and data[1] == "" then
 		close_connection()
@@ -158,22 +160,52 @@ local function handle_reply(data)
 		return
 	end
 
-	local reply = vim.fn.json_decode(data[1])
-	if not reply then
-		return
+	local last = string.sub(data[1], -1)
+
+	local buffer_length = 0
+	if reply_buffer ~= nil then
+		buffer_length = #reply_buffer
 	end
 
-	-- vim.notify(vim.inspect(reply), vim.log.levels.ERROR)
+	if last == "\006" then
+		-- vim.notify("Received message, buffer: " .. buffer_length, vim.log.levels.INFO)
+		local all_data
+		local input = data[1]:sub(1, -2)
+		-- print("Handle: `" .. input .. "`")
 
-	if reply["message_id"] then
-		local message_id = tostring(reply["message_id"])
-		local messages = vim.g.blog_messages or {}
-		messages[message_id] = reply
-		vim.g.blog_messages = messages
-	elseif reply.id == "Diagnostics" then
-		diagnostics.add_diagnostics(reply.diagnostics)
+		if reply_buffer == nil then
+			all_data = input
+		else
+			all_data = reply_buffer .. input
+			reply_buffer = nil
+		end
+		-- print("all_data: `" .. all_data .. "`")
+
+		local reply = vim.fn.json_decode(all_data)
+		if not reply then
+			return
+		end
+		vim.notify(vim.inspect(reply), vim.log.levels.INFO)
+
+		-- vim.notify("Decoded message length: " .. #all_data, vim.log.levels.INFO)
+
+		if reply["message_id"] then
+			local message_id = tostring(reply["message_id"])
+			local messages = vim.g.blog_messages or {}
+			messages[message_id] = reply
+			vim.g.blog_messages = messages
+		elseif reply.id == "Diagnostics" then
+			diagnostics.add_diagnostics(reply.diagnostics)
+		else
+			log.debug("Unknown message:", vim.inspect(reply))
+		end
 	else
-		log.debug("Unknown message:", vim.inspect(reply))
+		-- We've got more data, store and handle it later
+		if reply_buffer == nil then
+			reply_buffer = data[1]
+		else
+			reply_buffer = reply_buffer .. data[1]
+		end
 	end
 end
 

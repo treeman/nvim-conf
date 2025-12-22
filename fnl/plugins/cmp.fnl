@@ -50,13 +50,23 @@
                               "snippets"
                               "css_vars"
                               "spell"
+                              "blog"
                               "buffer"]
-                    :providers {:blog {:name "Blog" :module :blog.blink-cmp}
+                    :providers {:blog {:name "Blog"
+                                       :module :blog.blink-cmp
+                                       :fallbacks ["buffer"]}
                                 :spell {:name "Spell"
                                         :module :blink-cmp-spell
                                         :opts {:enable_in_context in_spell?}}
+                                :lsp {:fallbacks ["buffer"]}
                                 :css_vars {:name "css-vars"
                                            :module :css-vars.blink}}}
+          :fuzzy {:sorts [#(if (or (= $1.client_name "blog"
+                                      (not= $2.client_name "blog")))
+                               true)
+                          "exact"
+                          "score"
+                          "sort_text"]}
           :completion {:menu {:draw {:columns [{1 "label" :gap 1}
                                                ["kind_icon"]
                                                ; ["kind_icon" "kind"]
