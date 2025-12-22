@@ -44,13 +44,12 @@
                            "hide_documentation"
                            "fallback"]
                    :<C-s> ["show_signature" "hide_signature" "fallback"]}
-          :completion {:documentation {:auto_show true}}
           :sources {:default ["lsp"
+                              "blog"
                               "path"
                               "snippets"
                               "css_vars"
                               "spell"
-                              "blog"
                               "buffer"]
                     :providers {:blog {:name "Blog"
                                        :module :blog.blink-cmp
@@ -61,13 +60,17 @@
                                 :lsp {:fallbacks ["buffer"]}
                                 :css_vars {:name "css-vars"
                                            :module :css-vars.blink}}}
-          :fuzzy {:sorts [#(if (or (= $1.client_name "blog"
-                                      (not= $2.client_name "blog")))
-                               true)
-                          "exact"
-                          "score"
-                          "sort_text"]}
-          :completion {:menu {:draw {:columns [{1 "label" :gap 1}
+          ; :fuzzy {:sorts [#(if (not (or (= $1.client_name nil)
+          ;                               (= $2.client_name nil)
+          ;                               (= $1.client_name $2.client_name)))
+          ;                      (do
+          ;                        (print (vim.inspect $1))
+          ;                        (= $2.client_name "blog")))
+          ;                 "exact"
+          ;                 "score"
+          ;                 "sort_text"]}
+          :completion {:documentation {:auto_show true}
+                       :menu {:draw {:columns [{1 "label" :gap 1}
                                                ["kind_icon"]
                                                ; ["kind_icon" "kind"]
                                                ["source_name"]]
