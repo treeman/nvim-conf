@@ -1,3 +1,5 @@
+;; fennel-ls: macro-file
+
 ; Import and reexport macros from nvim-laurel
 ; See https://github.com/aileot/nvim-laurel/blob/main/docs/reference.md
 (local {: let!

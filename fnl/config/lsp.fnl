@@ -15,6 +15,8 @@
 ;; I don't want objective-c and objective-cpp
 (vim.lsp.config "clangd" {:filetypes {"c" "cpp"}})
 
+(vim.lsp.enable "fennel_ls")
+
 (augroup! :my-lsps
           (au! :LspAttach
                (λ [_]
