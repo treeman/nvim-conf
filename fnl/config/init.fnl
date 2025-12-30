@@ -6,7 +6,6 @@
 (require :plugins)
 
 ;; Finally load the rest of the configuration.
-(require :config.bugs)
 (require :config.options)
 (require :config.usercmds)
 (require :config.autocmds)

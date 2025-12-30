@@ -22,6 +22,7 @@
 
 [{:src "https://github.com/ribru17/blink-cmp-spell" :dep_of :blink.cmp}
  {:src "https://github.com/jdrupal-dev/css-vars.nvim" :dep_of :blink.cmp}
+ {:src "https://github.com/joelazar/blink-calc" :dep_of :blink.cmp}
  {:src "https://github.com/xzbdmw/colorful-menu.nvim"
   :dep_of :blink.cmp
   :on_require :colorful-menu
@@ -29,8 +30,7 @@
  {:src "https://github.com/Saghen/blink.cmp"
   :build ["cargo" "build" "--release"]
   :on_require :blink.cmp
-  :setup {:keymap {:preset "default"}
-          :keymap {:<C-n> ["select_next" "show" "fallback_to_mappings"]
+  :setup {:keymap {:<C-n> ["select_next" "show" "fallback_to_mappings"]
                    :<C-p> ["select_prev" "show" "fallback_to_mappings"]
                    :<Down> ["select_next" "fallback"]
                    :<Up> ["select_prev" "fallback"]
@@ -50,16 +50,18 @@
                               "snippets"
                               "css_vars"
                               "spell"
+                              "calc"
                               "buffer"]
                     :providers {:blog {:name "Blog"
                                        :module :blog.blink-cmp
-                                       :fallbacks ["buffer"]}
+                                       :fallbacks ["buffer" "calc" "spell"]}
                                 :spell {:name "Spell"
                                         :module :blink-cmp-spell
                                         :opts {:enable_in_context in_spell?}}
                                 :lsp {:fallbacks ["buffer"]}
                                 :css_vars {:name "css-vars"
-                                           :module :css-vars.blink}}}
+                                           :module :css-vars.blink}
+                                :calc {:name "calc" :module "blink-calc"}}}
           ; :fuzzy {:sorts [#(if (not (or (= $1.client_name nil)
           ;                               (= $2.client_name nil)
           ;                               (= $1.client_name $2.client_name)))

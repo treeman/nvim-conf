@@ -36,7 +36,7 @@
   (local [row col] ctx.cursor)
   (local path (vim.fn.expand "%:p"))
   (server.call {:id "Complete"
-                :path (vim.fn.expand "%:p")
+                :path path
                 :cursor_before_line before
                 :col col
                 :row row}
