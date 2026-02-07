@@ -43,7 +43,7 @@
                                                   :Copied "*"
                                                   :Conflict "!"
                                                   :Ignored "."}}
-                           :indentscope {:marker "┆"}
+                           :indentscope {:markers "┆"}
                            :win {:kind "split_left_most"
                                  :kind_presets {:split_left_most {:width "40abs"
                                                                   :height "1rel"}}

@@ -207,6 +207,14 @@
       "rev": "9ea940c",
       "src": "https://github.com/romainl/vim-cool"
     },
+    "vim-dadbod": {
+      "rev": "6d1d41d",
+      "src": "https://github.com/tpope/vim-dadbod"
+    },
+    "vim-dadbod-ui": {
+      "rev": "48c4f27",
+      "src": "https://github.com/kristijanhusak/vim-dadbod-ui"
+    },
     "vim-matchup": {
       "rev": "1c276e1",
       "src": "https://github.com/andymass/vim-matchup"

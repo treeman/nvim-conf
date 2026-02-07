@@ -22,6 +22,10 @@
  ;; Git
  {:src "https://github.com/sindrets/diffview.nvim" :dep_of :neogit}
  {:src "https://github.com/isakbm/gitgraph.nvim" :dep_of :neogit}
+ {:src "https://github.com/tpope/vim-dadbod" :dep_of :vim-dadbod-ui}
+ {:src "https://github.com/kristijanhusak/vim-dadbod-ui"
+  :after (λ []
+           (g! :db_ui_use_nerd_fonts 1))}
  {:src "https://github.com/NeogitOrg/neogit"
   :on_require :neogit
   :cmd :Neogit
