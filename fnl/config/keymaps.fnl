@@ -80,6 +80,7 @@
       {:silent true :desc "Resume pick"})
 
 (map! :n "<leader>f" #(m snacks.picker files) {:silent true :desc "Find files"})
+
 (map! :n "<leader>F" #(m snacks.picker files {:cwd (vim.fn.expand "%:p:h")})
       {:silent true :desc "Find files from current file"})
 
@@ -279,22 +280,31 @@
 (map! :v "<C-r>" (<Cmd> :SearchReplaceSingleBufferVisualSelection)
       {:desc "Replace selection"})
 
-; -- Spell
-; map("n", "ss", function()
-;   vim.opt.spell = not (vim.opt.spell:get())
-; end, { silent = true, desc = "Toggle spell" })
-;
-; -- Conceal
-; map("n", "<leader>c", function()
-;   local current_level = vim.wo.conceallevel
-;   if current_level == 0 then
-;     vim.wo.conceallevel = 2
-;   else
-;     vim.wo.conceallevel = 0
-;   end
-; end, { silent = true, desc = "Toggle conceal" })
-;
-;
+;; -- Spell
+(map! :n "<leader>ss" #(set! :spell (not (vim.opt.spell:get)))
+      {:desc "Toggle spell" :silent true})
+
+;; -- Conceal
+(map! :n "<leader>sc"
+      #(set! :spell (let! :wo :conceallevel (if (= vim.wo.conceallevel 0) 2 0)))
+      {:desc "Toggle conceal" :silent true})
+
+;; Claude
+(map! :n "<leader>ac" (<Cmd> :ClaudeCode) {:desc "Toggle Claude"})
+(map! :n "<leader>af" (<Cmd> :ClaudeCodeFocus) {:desc "Focus Claude"})
+(map! :n "<leader>ar" (<Cmd> "ClaudeCode --resume") {:desc "Resume Claude"})
+(map! :n "<leader>aC" (<Cmd> "ClaudeCode --continue") {:desc "Continue Claude"})
+(map! :n "<leader>am" (<Cmd> "ClaudeCodeSelectModel")
+      {:desc "Select Claude model"})
+
+(map! :n "<leader>ab" (<Cmd> "ClaudeCodeAdd %")
+      {:desc "Add current buffer to Claude"})
+
+(map! :v "<leader>as" (<Cmd> "ClaudeCodeSend %") {:desc "Send to Claude"})
+; (map! :v "<leader>as" (<Cmd> "ClaudeCodeTreeAdd %") {:desc "Send to Claude"})
+(map! :n "<leader>aa" (<Cmd> "ClaudeCodeDiffAccept") {:desc "Accept diff"})
+(map! :n "<leader>ad" (<Cmd> "ClaudeCodeDiffDeny") {:desc "Deny diff"})
+
 ; local old_gx = vim.fn.maparg("gx", "n", nil, true)
 ; map("n", "gx", require("custom.open").gx_extended(old_gx.callback), { desc = old_gx.desc })
 
