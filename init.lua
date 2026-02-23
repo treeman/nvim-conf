@@ -26,7 +26,8 @@ vim.pack.add({
   "https://github.com/aileot/nvim-thyme",
   "https://git.sr.ht/~technomancy/fennel",
   -- Gives us some pleasant fennel macros.
-  "https://github.com/aileot/nvim-laurel",
+  -- Copied this in-house to make fennel-lsp happy...
+  -- "https://github.com/aileot/nvim-laurel",
   -- Enables lazy loading of plugins.
   "https://github.com/BirdeeHub/lze",
 }, { confirm = false })
