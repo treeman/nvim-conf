@@ -81,3 +81,4 @@
                               :auto_show true}
                        :ghost_text {:show_with_menu true :enabled true}}}
   :event :InsertEnter}]
+

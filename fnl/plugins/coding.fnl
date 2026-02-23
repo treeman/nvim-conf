@@ -112,4 +112,17 @@
  {:src "https://github.com/folke/lazydev.nvim"
   :ft :lua
   :on_require :lazydev
-  :setup {}}]
+  :setup {}}
+ ;; AI
+ {:src "https://github.com/coder/claudecode.nvim"
+  :on_require :claudecode
+  :lazy false
+  :setup {}
+  :cmd [:ClaudeCode
+        :ClaudeCodeFocus
+        :ClaudeCodeAdd
+        :ClaudeCodeSend
+        :ClaudeCodeSelectModel
+        :ClaudeCodeTreeAdd
+        :ClaudeCodeDiffAccept
+        :ClaaudeCodeDiffDeny]}]
