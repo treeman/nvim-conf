@@ -16,5 +16,6 @@
 (require :config.treesitter)
 (require :config.lsp)
 (require :config.undotree)
+(require :config.lua_config)
 
 (require :blog)

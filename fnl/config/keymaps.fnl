@@ -68,11 +68,11 @@
 (map! "n" "J" "mzJ`z")
 
 ;; Drawer
-(map! :n "<leader>d" #(m fyler toggle) {:desc "Drawer"})
+(map! :n "<leader>d" (<Cmd> "Neotree toggle=true") {:desc "Drawer"})
 
-; Edit files in current directory
-(map! :n "<leader>e." #(m fyler open {:dir (vim.fn.expand "%:p:h")})
-      {:desc "Edit directory of buffer"})
+(map! :n "<leader>ed" (<Cmd> "Oil --float . ") {:desc "Edit workspace"})
+(map! :n "<leader>e." ":Oil <C-R>=expand('%:p:h')<CR><CR>"
+      {:desc "Edit current directory"})
 
 (map! :n :<leader>b #(m snacks.picker buffers) {:desc "Buffers"})
 (map! :n :<leader>o #(m snacks.picker recent) {:silent true :desc "Old files"})

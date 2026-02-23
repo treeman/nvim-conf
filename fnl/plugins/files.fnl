@@ -30,24 +30,27 @@
   :on_require :search-replace
   :setup {}}
  ;; Drawer
- {:src "https://github.com/A7Lavinraj/fyler.nvim"
-  :on_require :fyler
-  :setup {:integrations {:icon "nvim_web_devicons"}
-          :views {:finder {:close_on_select false
-                           :default_explorer true
-                           :git_status {:symbols {:Untracked "?"
-                                                  :Added "+"
-                                                  :Modified "~"
-                                                  :Deleted "-"
-                                                  :Renamed ">"
-                                                  :Copied "*"
-                                                  :Conflict "!"
-                                                  :Ignored "."}}
-                           :indentscope {:markers "┆"}
-                           :win {:kind "split_left_most"
-                                 :kind_presets {:split_left_most {:width "40abs"
-                                                                  :height "1rel"}}
-                                 :win_opts {:spell false}}}}}}
+ {:src "https://github.com/nvim-neo-tree/neo-tree.nvim"
+  :version (vim.version.range "3")
+  :on_require :neo-tree
+  :cmd :Neotree
+  :setup {:window {:mapping_options {:noremap true :nowait true}
+                   :mappings {"l" "open"
+                              "h" "close_node"
+                              "!" "toggle_hidden"
+                              "X" "delete"
+                              ;;"/" "noop"
+                              ;;"?" "noop"
+                              "space" "none"
+                              "<Esc>" "close_window"}}
+          :filesystem {;; Use oil instead
+                       :hijack_netrw_behavior "disabled"}}}
+ {:src "https://github.com/stevearc/oil.nvim"
+  :lazy false
+  :on_require :oil
+  :setup {:default_file_explorer true
+          :float {:max_width 0.8 :preview_split "right"}
+          :keymaps {"<BS>" "actions.parent" "!" "actions.toggle_hidden"}}}
  ;; Paths
  "https://github.com/nanotee/zoxide.vim"
  {:src "https://github.com/ethanholz/nvim-lastplace"
@@ -66,7 +69,7 @@
   :on_require :project
   :lazy false
   :setup {;; Workaround for some LSPs using ~ as root
-          :ignore_lsp ["ts_ls" "cssls" "html"]
+          :lsp {:ignore ["ts_ls" "cssls" "html"]}
           :silent_chdir true
           :log {:enabled false}
           :scope_chdir "win"

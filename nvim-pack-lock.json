@@ -109,9 +109,18 @@
       "src": "https://github.com/nvim-mini/mini.nvim",
       "version": "'main'"
     },
+    "neo-tree.nvim": {
+      "rev": "f3df514fff2bdd4318127c40470984137f87b62e",
+      "src": "https://github.com/nvim-neo-tree/neo-tree.nvim",
+      "version": "3.0.0 - 4.0.0"
+    },
     "neogit": {
       "rev": "0ea6b87ae19e8e5a235c682f8db1305774824f9b",
       "src": "https://github.com/NeogitOrg/neogit"
+    },
+    "nui.nvim": {
+      "rev": "de740991c12411b663994b2860f1a4fd0937c130",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-jdtls": {
       "rev": "77ccaeb422f8c81b647605da5ddb4a7f725cda90",
@@ -150,6 +159,10 @@
     "nvim-web-devicons": {
       "rev": "746ffbb17975ebd6c40142362eee1b0249969c5c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "oil.nvim": {
+      "rev": "48fc83a9978c5f25833634700c08be583ee78eb7",
+      "src": "https://github.com/stevearc/oil.nvim"
     },
     "parinfer-rust": {
       "rev": "845bfbb9916687cba5b6bae088c9eab70dbb83a3",

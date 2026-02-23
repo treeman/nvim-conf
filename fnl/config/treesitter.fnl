@@ -3,7 +3,7 @@
 (local nvim-treesitter (require :nvim-treesitter))
 
 ;; Ignore auto install for these filetypes:
-(local ignored_ft [])
+(local ignored_ft [:oil :sh :help])
 
 (augroup! :treesitter
           (au! :FileType
