@@ -77,7 +77,11 @@
  {:src "https://github.com/numToStr/Comment.nvim"
   :on_require :Comment
   :setup {:ignore "^$"}
-  :event [:BufReadPost :BufNewFile]}
+  :event [:BufReadPost :BufNewFile]
+  :after (λ []
+           (local ft (require "Comment.ft"))
+           ;; Force fennel to use double semicolons.
+           (ft.set "fennel" ";; %s"))}
  {:src "https://github.com/folke/todo-comments.nvim"
   :enabled false
   :on_require :todo-comments
