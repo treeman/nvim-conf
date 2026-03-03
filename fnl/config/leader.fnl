@@ -1,4 +1,8 @@
 (require-macros :laurel.macros)
+(local util (require :util))
+(local cybershard (util.cybershard_keyboard?))
+
 (g! :mapleader " ")
-; Todo set maplocalleader to "-" or "_" depending on keyboard layout
-(g! :maplocalleader "_")
+(if cybershard
+    (g! :maplocalleader "_")
+    (g! :maplocalleader "-"))

@@ -17,7 +17,7 @@
       "src": "https://github.com/ribru17/blink-cmp-spell"
     },
     "blink.cmp": {
-      "rev": "b4d379393882561f9055abe780342ee00f02c573",
+      "rev": "b650e976a927be6b46487a0a610b75af111376c5",
       "src": "https://github.com/Saghen/blink.cmp"
     },
     "blink.compat": {
@@ -85,7 +85,7 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "lze": {
-      "rev": "7276233f8fbe883e0a3b2164a836a2b292883a1c",
+      "rev": "e1b8c2e99fc1812fb79d309d2aad95fcdf0e01a5",
       "src": "https://github.com/BirdeeHub/lze"
     },
     "marks.nvim": {
@@ -93,7 +93,7 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "6c4830e37743b060d13c9269394176aea6a0fbc8",
+      "rev": "9e3a9fe4f1f9f34b19307a2695dee8fbbd0be776",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -105,17 +105,17 @@
       "src": "https://github.com/savq/melange-nvim"
     },
     "mini.nvim": {
-      "rev": "ccfc8c35cac348070a9528410c794459c4cc2eeb",
+      "rev": "a95dc67ecff78de138543a20c20f29f47111b122",
       "src": "https://github.com/nvim-mini/mini.nvim",
       "version": "'main'"
     },
     "neo-tree.nvim": {
-      "rev": "f3df514fff2bdd4318127c40470984137f87b62e",
+      "rev": "ba6871d15528e36657d19a3112cc1697c59da19a",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim",
       "version": "3.0.0 - 4.0.0"
     },
     "neogit": {
-      "rev": "0ea6b87ae19e8e5a235c682f8db1305774824f9b",
+      "rev": "515e8cb9c3430a064ec3d9affd499b94f71b3120",
       "src": "https://github.com/NeogitOrg/neogit"
     },
     "nui.nvim": {
@@ -135,7 +135,7 @@
       "src": "https://github.com/aileot/nvim-laurel"
     },
     "nvim-lspconfig": {
-      "rev": "5a855bcfec7973767a1a472335684bbd71d2fa2b",
+      "rev": "f2193125da0bff2e4eae8e0a45e343ec9bca4c72",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -147,7 +147,7 @@
       "src": "https://github.com/aileot/nvim-thyme"
     },
     "nvim-treesitter": {
-      "rev": "dc42c209f3820bdfaae0956f15de29689aa6b451",
+      "rev": "ae2081cfcd3719d74b600f8377e4a99d1ec19c4a",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -157,11 +157,11 @@
       "version": "'main'"
     },
     "nvim-web-devicons": {
-      "rev": "746ffbb17975ebd6c40142362eee1b0249969c5c",
+      "rev": "737cf6c657898d0c697311d79d361288a1343d50",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
-      "rev": "48fc83a9978c5f25833634700c08be583ee78eb7",
+      "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "parinfer-rust": {
@@ -177,7 +177,7 @@
       "src": "https://github.com/nvim-lua/popup.nvim"
     },
     "project.nvim": {
-      "rev": "379f79a5405add7bd8390695f187fe07d5b46495",
+      "rev": "e0349d75dacc64178fc8a4f549807d44816942db",
       "src": "https://github.com/DrKJeff16/project.nvim"
     },
     "rtp.nvim": {
