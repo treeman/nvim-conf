@@ -2,8 +2,13 @@
  :version :main
  :lazy false
  :after (λ []
-          (: (require :mini.git) :setup {})
-          (: (require :mini.trailspace) :setup {})
-          (: (require :mini.cursorword) :setup {})
-          (: (require :mini.notify) :setup {})
-          (: (require :mini.surround) :setup {}))}
+          (local git (require :mini.git))
+          (local trailspace (require :mini.trailspace))
+          (local cursorword (require :mini.cursorword))
+          (local surround (require :mini.surround))
+          (local notify (require :mini.notify))
+          (git.setup {})
+          (trailspace.setup {})
+          (cursorword.setup {})
+          (surround.setup {})
+          (notify.setup {:lsp_progress {:enable false :level "ERROR"}}))}
