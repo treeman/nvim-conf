@@ -3,7 +3,7 @@
 (local nvim-treesitter (require :nvim-treesitter))
 
 ;; Ignore auto install for these filetypes:
-(local ignored_ft [:oil :sh :help :htmldjango])
+(local ignored_ft [:oil :sh :help :htmldjango :conf])
 
 (augroup! :treesitter
           (au! :FileType
