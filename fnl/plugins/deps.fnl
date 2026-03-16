@@ -9,3 +9,5 @@
  "https://github.com/rachartier/tiny-devicons-auto-colors.nvim"
  {:src "https://github.com/nvim-tree/nvim-web-devicons"
   :dep_of ["fyler.nvim" "tiny-devicons-auto-colors.nvim" "neo-tree.nvim"]}]
+
+; {:src "https://github.com/saghen/blink.lib" :dep_of "kubectl"}]

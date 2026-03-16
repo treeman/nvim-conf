@@ -99,6 +99,8 @@
 (map! :n "<leader>hi" #(m snacks.picker highlights)
       {:silent true :desc "Highlights"})
 
+(map! :n "<leader>k" #(m kubectl toggle) {:desc "Find files"})
+
 ;; Telescoping into a personal knowledge base is really pleasant,
 (λ find_org_file [base_folder]
   (local folder (.. (vim.fn.expand "~/org/") base_folder "/"))
