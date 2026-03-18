@@ -1,9 +1,9 @@
-{:src "https://github.com/nvim-mini/mini.nvim"
- :version :main
+{1 "https://github.com/nvim-mini/mini.nvim"
+ :version "*"
  :lazy false
- :after (λ []
-          (: (require :mini.git) :setup {})
-          (: (require :mini.trailspace) :setup {})
-          (: (require :mini.cursorword) :setup {})
-          (: (require :mini.notify) :setup {})
-          (: (require :mini.surround) :setup {}))}
+ :config (λ []
+           (: (require :mini.git) :setup {})
+           (: (require :mini.trailspace) :setup {})
+           (: (require :mini.cursorword) :setup {})
+           (: (require :mini.notify) :setup {})
+           (: (require :mini.surround) :setup {}))}

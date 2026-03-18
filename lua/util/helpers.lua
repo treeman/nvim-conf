@@ -30,10 +30,7 @@ M.run_cmd = function(args)
 
   local err = proc.stderr.read()
   if err and string.len(err) ~= 0 then
-    vim.notify(
-      "error while running command " .. vim.inspect(args) .. ": " .. err,
-      vim.log.levels.ERROR
-    )
+    vim.notify("error while running command " .. vim.inspect(args) .. ": " .. err, vim.log.levels.ERROR)
     return nil
   end
 

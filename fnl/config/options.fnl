@@ -1,115 +1,90 @@
 (require-macros :laurel.macros)
 
-; Difficult to use fish as a default shell as plugins may depend on POSIX
-; Instead launch terminal with bash
+;; Difficult to use fish as a default shell as plugins may depend on POSIX
+;; Instead launch terminal with bash
 (set! :shell "/bin/bash")
 
-; Use CLIPBOARD register + as default
-; Remember to install "xsel" for this to work!
-; For Neovim in WSL see:
-; https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
+;; Use CLIPBOARD register + as default
+;; Remember to install "xsel" for this to work!
+;; For Neovim in WSL see:
+;; https://github.com/neovim/neovim/wiki/FAQ#how-to-use-the-windows-clipboard-from-wsl
 (set! :clipboard + ["unnamed" "unnamedplus"])
 
-; Backup files
+;; Backup files
 (set! :backupdir (vim.fn.expand "~/.config/nvim/backup"))
-
-; where to put backup
+;; where to put backup
 (set! :backup true)
-
-; make backup files
+;; make backup files
 (set! :swapfile false)
-
-; just annoying when I forcefully kill vim with the recovery
+;; just annoying when I forcefully kill vim with the recovery
 (set! :wildignore "*.swp,*.bak,*.pyc,*.class,*.o,*.obj,*.ali")
 
-; ignore files for file handling
+;; ignore files for file handling
 (set! :hidden true)
 
-; can change buffers without saving
-; History and stuff
+;; can change buffers without saving
+;; History and stuff
 (set! :shada "!,'1000,<100,s100,h,f1")
 (set! :shadafile (vim.fn.expand "~/.config/nvim/.shada"))
 
-; This causes a bug to insert stuff when opening file!
-; Prevent <leader> from timing out
-(set! :timeout false)
-(set! :ttimeout false)
+;; This causes a bug to insert stuff when opening file in ghostty!
+;; Prevent <leader> from timing out
+; (set! :timeout false)
+; (set! :ttimeout false)
 
-; Text display
+;; show invisible chars?
 (set! :list false)
-
-; show invisible chars?
+;; show tabs and trailing spaces
 (set! :listchars "tab:>-,trail:-")
-
-; show tabs and trailing spaces
+;; No fold on startup
 (set! :foldenable false)
-
-; disable folding at startup
-
-; Text formatting
+;; no real tabs please!
 (set! :expandtab true)
-
-; no real tabs please!
+;; when at 3 spaces, and I hit > ... go to 4, not 5
 (set! :shiftround true)
-
-; when at 3 spaces, and I hit > ... go to 4, not 5
+;; auto indent amount when using indents ex >> and <<
 (set! :shiftwidth 4)
-
-; auto indent amount when using indents ex >> and <<
+;; when hitting tab or backspace, how wide should a tab be
 (set! :softtabstop 4)
-
-; when hitting tab or backspace, how wide should a tab be
+;; tabs width
 (set! :tabstop 4)
-
-; tabs width
+;; keep indenting after newline
 (set! :autoindent true)
-
-; keep indenting after newline
 (set! :smarttab true)
 
-; insert tabs on the start according to shiftwidth, not tabstop
-
-; UI
+;; display relative line numbers
 (set! :relativenumber true)
-
-; display relative line numbers
+;; show line numbers
 (set! :number true)
-
-; show line numbers
+;; don't insert any extra pixel lines between rows
 (set! :linespace 0)
+;; tell us when anything is changed via :...
+; (set! :report 0)
 
-; don't insert any extra pixel lines between rows
-(set! :report 0)
-
-; tell us when anything is changed via :...
+;; shortens messages to aviod 'press a key' prompt
 (set! :shortmess "aOstTc")
 
-; shortens messages to aviod 'press a key' prompt
+;; always show current positions along the bottom
 (set! :ruler true)
-
-; always show current positions along the bottom
+;; show the command being typed
 (set! :showcmd true)
-
-; show the command being typed
+;; Use a gutter for git-gutter and LSP messages
 (set! :signcolumn "yes")
 
-; Use a gutter for git-gutter and LSP messages
+;; Required settings for nvim-cmp
 (set! :completeopt "menuone,noselect")
 
-; Required settings for nvim-cmp
+;; Hide "concealed" syntax, for example in Djot and markdown
 (set! :conceallevel 2)
 
-; Hide "concealed" syntax, for example in Djot and markdown
+;; always show the status line
 (set! :laststatus 2)
-
-; always show the status line
 
 (set! :spell true)
 (set! :spelllang ["en_us" "sv"])
 
+;; speed up macros
 (set! :lazyredraw true)
-
-; speed up macros
 
 (set! :winborder "single")
 (set! :termguicolors true)

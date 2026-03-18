@@ -1,7 +1,5 @@
 (require-macros :macros)
 
-(vim.cmd.colorscheme "melange")
-
 (local bg (: vim.opt.background :get))
 (local {: a : b : c : d} (require (.. "melange/palettes/" bg)))
 

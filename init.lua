@@ -1,54 +1,74 @@
--- Workaround for Neovim 0.11 inserting random characters upon start
--- https://github.com/neovim/neovim/issues/33148#issuecomment-2815035441
-local _, vimtermcap = pcall(require, "vim.termcap")
-vimtermcap.query = function() end
-
-vim.loader.enable()
-
--- Clear Fennel cache when Fennel dependencies are changed.
-local rebuild_thyme = false
-
-vim.api.nvim_create_autocmd("PackChanged", {
-  callback = function(event)
-    local name = event.data.spec.name
-
-    if name == "nvim-thyme" or name == "nvim-laurel" then
-      rebuild_thyme = true
-    end
-  end,
-  group = vim.api.nvim_create_augroup("init.lua", { clear = true }),
-})
-
--- vim.pack installs into `~/.local/share/nvim/site/pack/core/opt/` by default
--- while adding them to &runtimepath.
-vim.pack.add({
-  -- Fennel environment and compiler.
-  "https://github.com/aileot/nvim-thyme",
-  "https://git.sr.ht/~technomancy/fennel",
-  -- Gives us some pleasant fennel macros.
-  -- Copied this in-house to make fennel-lsp happy...
-  -- "https://github.com/aileot/nvim-laurel",
-  -- Enables lazy loading of plugins.
-  "https://github.com/BirdeeHub/lze",
-}, { confirm = false })
-
--- Override package loading so thyme can hook into `require` calls and generate lua code
--- if the required package is a fennel fil.
-table.insert(package.loaders, function(...)
-  return require("thyme").loader(...)
-end)
-
--- Setup the compile cache path that thyme requires.
-local thyme_cache_prefix = vim.fn.stdpath("cache") .. "/thyme/compiled"
-vim.opt.rtp:prepend(thyme_cache_prefix)
-
-require("thyme").setup()
-
--- Rebuild thyme cache after `vim.pack.add` to avoid dependency issues
--- and to make sure all packages are loaded.
-if rebuild_thyme then
-  vim.cmd("ThymeCacheClear")
+-- https://github.com/aileot/nvim-thyme?tab=readme-ov-file#-installation
+local function bootstrap(url)
+  -- To manage the version of repo, the path should be where your plugin manager will download it.
+  local name = url:gsub("^.*/", "")
+  local path = vim.fn.stdpath("data") .. "/lazy/" .. name
+  if not vim.loop.fs_stat(path) then
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      url,
+      path,
+    })
+  end
+  vim.opt.runtimepath:prepend(path)
 end
 
--- Load the rest of the config with transparent fennel support.
+bootstrap("https://git.sr.ht/~technomancy/fennel")
+bootstrap("https://github.com/aileot/nvim-thyme")
+bootstrap("https://github.com/folke/lazy.nvim")
+-- Copied into repo to make lsp happy.
+-- bootstrap("https://github.com/aileot/nvim-laurel")
+
+-- Wrapping the `require` in `function-end` is important for lazy-load.
+table.insert(package.loaders, function(...)
+  return require("thyme").loader(...) -- Make sure to `return` the result!
+end)
+
+-- Note: Add a cache path to &rtp. The path MUST include the literal substring "/thyme/compile".
+local thyme_cache_prefix = vim.fn.stdpath("cache") .. "/thyme/compiled"
+vim.opt.rtp:prepend(thyme_cache_prefix)
+-- Note: `vim.loader` internally cache &rtp, and recache it if modified.
+-- Please test the best place to `vim.loader.enable()` by yourself.
+vim.loader.enable() -- (optional) before the `bootstrap`s above, it could increase startuptime.
+
+-- If you also manage other Fennel macro plugin versions, please clear the Lua cache on the updates!
+vim.api.nvim_create_autocmd("User", {
+  pattern = "LazyUpdate", -- for lazy.nvim
+  callback = function()
+    require("thyme").setup()
+    vim.cmd("ThymeCacheClear")
+  end,
+})
+
+-- In init.lua,
+vim.api.nvim_create_autocmd("VimEnter", {
+  once = true,
+  callback = function() -- You can substitute vim.schedule_wrap if you don't mind its tiny overhead.
+    vim.schedule(function()
+      require("thyme").setup()
+    end)
+  end,
+})
+
+-- Make sure to load leader first.
+require("config.leader")
+
+-- Generate fennel source for plugins,
+-- not done if we only rely on lazy.
+require("plugins")
+
+require("lazy").setup({
+  spec = {
+    { import = "plugins" },
+  },
+  performance = {
+    rtp = {
+      reset = false, -- Important! It's unfortunately incompatible with nvim-thyme.
+    },
+  },
+})
+
+-- Load rest of the config with fennel.
 require("config")

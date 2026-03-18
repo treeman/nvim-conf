@@ -4,7 +4,16 @@
 (mason.setup)
 
 (local mason-lspconfig (require :mason-lspconfig))
-(mason-lspconfig.setup {:automatic_enable true})
+(mason-lspconfig.setup {:ensure_installed ["rust_analyzer"
+                                           "ty"
+                                           "expert"
+                                           "clangd"
+                                           "lua_ls"
+                                           "cssls"
+                                           "yamlls"
+                                           "fennel_ls"
+                                           "jsonls"]
+                        :automatic_enable {:exclude ["rust_analyzer" "jdtls"]}})
 
 (vim.diagnostic.config {:virtual_text false
                         :severity_sort true
@@ -15,7 +24,7 @@
 ;; I don't want objective-c and objective-cpp
 (vim.lsp.config "clangd" {:filetypes {"c" "cpp"}})
 
-(vim.lsp.enable "fennel_ls")
+; (vim.lsp.enable "fennel_ls")
 
 (augroup! :my-lsps
           (au! :LspAttach
@@ -54,25 +63,3 @@
                         {:silent true :desc "LSP symbols"})
                  (bmap! :n "<localleader>w" snacks.picker.lsp_workspace_symbols
                         {:silent true :desc "LSP workspace symbols"}))))
-
-; (bmap! :n "<localleader>h" vim.lsp.buf.hover
-;        {:silent true :desc "Hover"})
-; (bmap! :n "<localleader>s" vim.lsp.buf.signature_help
-;        {:silent true :desc "Signature help"})
-; (bmap! :n "<localleader>r" vim.lsp.buf.references
-;        {:silent true :desc "References"})
-; (bmap! :n "<localleader>i" vim.lsp.buf.implementation
-;        {:silent true :desc "Implementation"})
-; (bmap! :n "<localleader>t" vim.lsp.buf.type_definition
-;        {:silent true :desc "Type definition"})
-; (bmap! :n "<localleader>x" vim.lsp.buf.code_action
-;        {:silent true :desc "Code action"})
-; (bmap! :n "<localleader>R" vim.lsp.buf.rename
-;        {:silent true :desc "Rename"})
-; (bmap! :n "<localleader>l"
-;        #(vim.diagnostic.open_float {:focusable false})
-;        {:silent true :desc "Diagnostics"})
-; (bmap! :n "<localleader>I" vim.lsp.buf.incoming_calls
-;        {:silent true :desc "Incoming calls"})
-; (bmap! :n "<localleader>O" vim.lsp.buf.outgoing_calls
-;        {:silent true :desc "Outgoing calls"}))))

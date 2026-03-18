@@ -6,7 +6,9 @@
       std-fnl-dir? (vim.uv.fs_stat (vim.fs.joinpath std-config "fnl"))
       use-lua-dir? (not std-fnl-dir?)]
   {:compiler-options {:correlate true
-                      :compilerEnv _G
+                      ;; Comment out below to enable `vim` APIs and any others in
+                      ;; compile time.
+                      ;; :compilerEnv _G
                       ;; Emphasize the error position with the pair of the strings.
                       :error-pinpoint ["|>>" "<<|"]}
    ;; The directory relative to `(stdpath :config)` to manage your Fennel modules
@@ -99,6 +101,5 @@
            ;; - "clear-all": clear all the Lua caches by nvim-thyme
            ;; - "clear": clear the cache of the module and its dependencies
            ;; - "recompile": recompile the module and its dependencies
-           ; :strategy "recompile"
-           :strategy "clear-all"
+           :strategy "recompile"
            :macro-strategy "clear-all"}})
