@@ -6,4 +6,3 @@
 (if cybershard
     (g! :maplocalleader "_")
     (g! :maplocalleader "-"))
-

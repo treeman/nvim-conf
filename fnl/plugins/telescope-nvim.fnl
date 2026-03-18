@@ -1,4 +1,6 @@
 [{1 "https://github.com/nvim-telescope/telescope.nvim"
+  :version "*"
+  :lazy true
   :dependencies [{1 "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
                   :build "make"}]
   :config (λ []
