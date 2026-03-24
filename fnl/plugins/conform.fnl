@@ -16,20 +16,8 @@
 
 ; :injected (require :formatters.injected)}})
 
-(command! :FormatDisable
-          #(if $1.bang
-               (b! :disable_autoformat true)
-               (g! :disable_autoformat true))
-          {:desc "Re-enable autoformat-on-save" :bang true})
-
-(command! "FormatEnable"
-          (λ []
-            (b! :disable_autoformat false)
-            (g! :disable_autoformat false))
-          {:desc "Re-enable autoformat-on-save" :bang true})
-
 {1 "https://github.com/stevearc/conform.nvim"
- :cmd ["Format" "ConformInfo"]
+ :cmd ["ConformInfo"]
  :event "BufWritePre"
  :opts {:formatters_by_ft {:fennel ["fnlfmt"]
                            :lua ["stylua"]
@@ -57,20 +45,4 @@
                                   :args ["--quiet"
                                          "--style=google"
                                          "--mode=java"]}
-                     :fnlfmt {:command "fnlfmt"}}}
- :init (λ []
-         (command! :Format
-                   (λ [args]
-                     (local range
-                            (when (not= args.count -1)
-                              (local end_line
-                                     (. (vim.api.nvim_buf_get_lines 0
-                                                                    (- args.line2
-                                                                       1)
-                                                                    args.line2
-                                                                    true)
-                                        1))
-                              {:start [args.line1 0]
-                               :end [args.line2 (end_line:len)]}))
-                     (local conform (require :conform))
-                     (conform.format {:async true :range range}))))}
+                     :fnlfmt {:command "fnlfmt"}}}}

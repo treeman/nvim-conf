@@ -1,3 +1,9 @@
+-- Note: Add a cache path to &rtp. The path MUST include the literal substring "/thyme/compile".
+local thyme_cache_prefix = vim.fn.stdpath("cache") .. "/thyme/compiled"
+vim.opt.rtp:prepend(thyme_cache_prefix)
+-- Note: `vim.loader` internally cache &rtp, and recache it if modified.
+vim.loader.enable()
+
 -- https://github.com/aileot/nvim-thyme?tab=readme-ov-file#-installation
 local function bootstrap(url)
   -- To manage the version of repo, the path should be where your plugin manager will download it.
@@ -25,13 +31,6 @@ bootstrap("https://github.com/folke/lazy.nvim")
 table.insert(package.loaders, function(...)
   return require("thyme").loader(...) -- Make sure to `return` the result!
 end)
-
--- Note: Add a cache path to &rtp. The path MUST include the literal substring "/thyme/compile".
-local thyme_cache_prefix = vim.fn.stdpath("cache") .. "/thyme/compiled"
-vim.opt.rtp:prepend(thyme_cache_prefix)
--- Note: `vim.loader` internally cache &rtp, and recache it if modified.
--- Please test the best place to `vim.loader.enable()` by yourself.
-vim.loader.enable() -- (optional) before the `bootstrap`s above, it could increase startuptime.
 
 -- If you also manage other Fennel macro plugin versions, please clear the Lua cache on the updates!
 vim.api.nvim_create_autocmd("User", {
