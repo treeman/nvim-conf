@@ -12,8 +12,10 @@
                                            "cssls"
                                            "yamlls"
                                            "fennel_ls"
-                                           "jsonls"]
-                        :automatic_enable {:exclude ["rust_analyzer" "jdtls"]}})
+                                           "jsonls"]})
+
+;; :automatic_enable {:exclude ["rust_analyzer" "jdtls"]}
+;; :automatic_enable {:exclude ["rust_analyzer" "jdtls"]}})
 
 (vim.diagnostic.config {:virtual_text false
                         :severity_sort true
@@ -24,7 +26,7 @@
 ;; I don't want objective-c and objective-cpp
 (vim.lsp.config "clangd" {:filetypes {"c" "cpp"}})
 
-; (vim.lsp.enable "fennel_ls")
+(vim.lsp.enable "fennel_ls")
 
 (augroup! :my-lsps
           (au! :LspAttach
