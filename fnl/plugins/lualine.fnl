@@ -89,25 +89,32 @@
 (λ config []
   (local lualine (require :lualine))
   (lualine.setup {:options {:theme my-theme}
-                  :sections {:lualine_a ["mode"]}
-                  :lualine_b [(tx! "branch" :fmt (trunc 200 20 80 true))
-                              (tx! "diff" :fmt (trunc 80 80 80 true))
-                              (tx! "diagnostics" :fmt (trunc 80 80 80 true))]
-                  :lualine_c [filename]
-                  :lualine_x [(tx! "lsp_status" :fmt (trunc 120 10 60 true))
-                              (tx! blog_status :fmt (trunc 120 10 60 true))]
-                  :lualine_y [(tx! spell :fmt (trunc 120 120 120 true))
-                              (tx! "encoding" :fmt (trunc 120 120 120 true))
-                              (tx! "filetype" :fmt (trunc 80 80 80 true))]
-                  :lualine_z [location]
-                  :inactive_sections {:lualine_a {}
-                                      :lualine_b {}
-                                      :lualine_c [filename]
-                                      :lualine_x {}
-                                      :lualine_y {}
-                                      :lualine_z {}}}))
+                  :sections {:lualine_a ["mode"]
+                             :lualine_b [(tx! "branch" :fmt
+                                              (trunc 200 20 80 true))
+                                         (tx! "diff" :fmt (trunc 80 80 80 true))
+                                         (tx! "diagnostics" :fmt
+                                              (trunc 80 80 80 true))]
+                             :lualine_c [filename]
+                             :lualine_x [(tx! "lsp_status" :fmt
+                                              (trunc 120 10 60 true))
+                                         (tx! blog_status :fmt
+                                              (trunc 120 10 60 true))]
+                             :lualine_y [(tx! spell :fmt
+                                              (trunc 120 120 120 true))
+                                         (tx! "encoding" :fmt
+                                              (trunc 120 120 120 true))
+                                         (tx! "filetype" :fmt
+                                              (trunc 80 80 80 true))]
+                             :lualine_z [location]
+                             :inactive_sections {:lualine_a {}
+                                                 :lualine_b {}
+                                                 :lualine_c [filename]
+                                                 :lualine_x {}
+                                                 :lualine_y {}
+                                                 :lualine_z {}}}}))
 
 [{1 "https://github.com/nvim-lualine/lualine.nvim"
   :lazy false
   :config config
-  :dependencies ["nvim-tree/nvim-web-devicons" "nvim-lua/lsp-status.nvim"]}]
+  :dependencies ["nvim-tree/nvim-web-devicons"]}]
