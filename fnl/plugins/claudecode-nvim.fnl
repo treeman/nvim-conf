@@ -1,5 +1,5 @@
 {1 "https://github.com/coder/claudecode.nvim"
- :opts {}
+ :opts {:terminal {:split_width_percentage 0.4}}
  :dependencies ["folke/snacks.nvim"]
  :cmd [:ClaudeCode
        :ClaudeCodeFocus
@@ -8,4 +8,4 @@
        :ClaudeCodeSelectModel
        :ClaudeCodeTreeAdd
        :ClaudeCodeDiffAccept
-       :ClaaudeCodeDiffDeny]}
+       :ClaudeCodeDiffDeny]}
