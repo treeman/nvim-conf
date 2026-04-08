@@ -19,7 +19,8 @@
 {1 "https://github.com/stevearc/conform.nvim"
  :cmd ["ConformInfo"]
  :event "BufWritePre"
- :opts {:formatters_by_ft {:fennel ["fnlfmt"]
+ :opts {:formatters_by_ft {:_ ["trim_whitespace"]
+                           :fennel ["fnlfmt"]
                            :lua ["stylua"]
                            :javascript ["prettierd"]
                            :typescript ["prettierd"]
