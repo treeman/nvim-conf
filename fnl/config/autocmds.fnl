@@ -10,4 +10,13 @@
                   false))
           (au! :WinLeave #(do
                             (let! :opt_local :cursorline false)
-                            false)))
+                            false))
+          (au! :TextYankPost
+               #(when (and (= vim.v.event.operator :y)
+                           (= vim.bo.buftype :terminal))
+                  (let [reg (if (= vim.v.event.regname "") "\""
+                                vim.v.event.regname)
+                        text (vim.fn.getreg reg)
+                        step1 (text:gsub "[ \t]+\n" "\n")
+                        trimmed (step1:gsub "[ \t]+$" "")]
+                    (vim.fn.setreg reg trimmed vim.v.event.regtype)))))
