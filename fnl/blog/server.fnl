@@ -43,28 +43,26 @@
 (fn call [msg cb]
   (when (not (is-connected))
     (lua "return nil"))
-  (nio.run
-    (fn []
-      ;; Create a unique message id for the call
-      (local msg-id (gen-message-id))
-      (tset msg :message_id msg-id)
-      (send-msg msg)
-      (local msg-id-s (tostring msg-id))
-      ;; Wait for response. 1 sec should be more than enough, otherwise we bail.
-      (var attempt 0)
-      (while (< attempt 100)
-        (when vim.g.blog_messages
-          (local reply (. vim.g.blog_messages msg-id-s))
-          (when reply
-            (tset vim.g.blog_messages msg-id-s nil)
-            (lua "return reply")))
-        (set attempt (+ attempt 1))
-        (nio.sleep 10))
-      ;; Response timed out
-      false)
-    (fn [success reply]
-      (when (and success reply)
-        (cb reply)))))
+  (nio.run (λ []
+             ;; Create a unique message id for the call
+             (local msg-id (gen-message-id))
+             (tset msg :message_id msg-id)
+             (send-msg msg)
+             (local msg-id-s (tostring msg-id))
+             ;; Wait for response. 1 sec should be more than enough, otherwise we bail.
+             (var attempt 0)
+             (while (< attempt 100)
+               (when vim.g.blog_messages
+                 (local reply (. vim.g.blog_messages msg-id-s))
+                 (when reply
+                   (tset vim.g.blog_messages msg-id-s nil)
+                   (lua "return reply")))
+               (set attempt (+ attempt 1))
+               (nio.sleep 10))
+             ;; Response timed out
+             false) (λ [success reply]
+                                 (when (and success reply)
+                                   (cb reply)))))
 
 (fn cast [msg]
   (when (not (is-connected))
@@ -78,9 +76,10 @@
   (local buf (vim.api.nvim_create_buf true true))
   (set vim.g.blog_job_bufnr buf)
   (vim.api.nvim_buf_call buf
-    (fn []
-      (set vim.g.blog_job_id
-        (vim.fn.termopen "./blog watch" {:cwd path.blog_path})))))
+                         (fn []
+                           (set vim.g.blog_job_id
+                                (vim.fn.termopen "./blog watch"
+                                                 {:cwd path.blog_path})))))
 
 (fn stop-server []
   (when (= vim.g.blog_job_id nil) (lua "return"))
@@ -109,12 +108,11 @@
   (if (= last "\006")
       (do
         (local input (string.sub (. data 1) 1 -2))
-        (local all-data
-          (if (= reply-buffer nil)
-              input
-              (let [result (.. reply-buffer input)]
-                (set reply-buffer nil)
-                result)))
+        (local all-data (if (= reply-buffer nil)
+                            input
+                            (let [result (.. reply-buffer input)]
+                              (set reply-buffer nil)
+                              result)))
         (local reply (vim.fn.json_decode all-data))
         (when (not reply) (lua "return"))
         (if (. reply :message_id)
@@ -135,11 +133,12 @@
   (when vim.g.blog_conn
     (lua "return true"))
   (local (status err)
-    (pcall (fn []
-      (set vim.g.blog_conn
-        (vim.fn.sockconnect :tcp "127.0.0.1:8082"
-          {:on_data (fn [_ data _]
-                      (nio.run (fn [] (handle-reply data))))})))))
+         (pcall (fn []
+                  (set vim.g.blog_conn
+                       (vim.fn.sockconnect :tcp "127.0.0.1:8082"
+                                           {:on_data (fn [_ data _]
+                                                       (nio.run (fn []
+                                                                  (handle-reply data))))})))))
   (if status
       (do
         (diagnostics.request_diagnostics_curr_buf)
@@ -158,14 +157,13 @@
   (when ensure-server-started
     (start-server))
   ;; Then try to reconnect, via a task to not block the UI.
-  (nio.run
-    (fn []
-      (var attempt 0)
-      (while (< attempt 10)
-        (set attempt (+ attempt 1))
-        (nio.sleep 1000)
-        (when (try-connect)
-          (lua "return"))))))
+  (nio.run (fn []
+             (var attempt 0)
+             (while (< attempt 10)
+               (set attempt (+ attempt 1))
+               (nio.sleep 1000)
+               (when (try-connect)
+                 (lua "return"))))))
 
 (fn start []
   (start-server)

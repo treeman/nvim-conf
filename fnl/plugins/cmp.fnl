@@ -44,6 +44,7 @@
                              "buffer"]
                    :providers {:blog {:name "Blog"
                                       :module :blog.blink-cmp
+                                      :async true
                                       :fallbacks ["buffer" "calc" "spell"]}
                                :spell {:name "Spell"
                                        :module :blink-cmp-spell
@@ -52,16 +53,13 @@
                                :css_vars {:name "css-vars"
                                           :module :css-vars.blink}
                                :calc {:name "calc" :module "blink-calc"}}}
-         ; :fuzzy {:sorts [#(if (not (or (= $1.client_name nil)
-         ;                               (= $2.client_name nil)
-         ;                               (= $1.client_name $2.client_name)))
-         ;                      (do
-         ;                        (print (vim.inspect $1))
-         ;                        (= $2.client_name "blog")))
-         ;                 "exact"
-         ;                 "score"
-         ;                 "sort_text"]}
-         :completion {:documentation {:auto_show true}
+         :fuzzy {:sorts [(require :blog.sort) "score" "sort_text"]}
+         :completion {:documentation {:auto_show true
+                                      :draw (fn [opts]
+                                              (local snacks (require :snacks))
+                                              (local buf (opts.window:get_buf))
+                                              (snacks.image.placement.clean buf)
+                                              (opts.default_implementation))}
                       :menu {:draw {:columns [{1 "label" :gap 1}
                                               ["kind_icon"]
                                               ; ["kind_icon" "kind"]
