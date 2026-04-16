@@ -19,4 +19,13 @@
                         text (vim.fn.getreg reg)
                         step1 (text:gsub "[ \t]+\n" "\n")
                         trimmed (step1:gsub "[ \t]+$" "")]
-                    (vim.fn.setreg reg trimmed vim.v.event.regtype)))))
+                    (vim.fn.setreg reg trimmed vim.v.event.regtype))))
+          ;; https://github.com/stevearc/oil.nvim/issues/87
+          (au! :User [:OilEnter]
+               (vim.schedule_wrap (λ [args]
+                                    (local oil (require :oil))
+                                    (when (and (= (vim.api.nvim_get_current_buf)
+                                                  args.data.buf)
+                                               (oil.get_cursor_entry))
+                                      (oil.open_preview)))))
+          (au! :FileType [:htmldjango] "set ft=html"))

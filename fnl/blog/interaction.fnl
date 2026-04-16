@@ -1,0 +1,54 @@
+(local content (require :blog.content))
+(local server (require :blog.server))
+
+(local M {})
+
+(fn M.goto_def []
+  (local pos (vim.api.nvim_win_get_cursor 0))
+  (server.call {:id "GotoDef"
+                :linenum (- (. pos 1) 1)
+                :column (. pos 2)
+                :path (vim.fn.expand "%:p")}
+               (fn [reply]
+                 (when (or reply.path reply.linenum)
+                   (vim.cmd ":normal m'"))
+                 (when reply.path
+                   (vim.cmd (.. ":e" reply.path)))
+                 (when reply.linenum
+                   (vim.api.nvim_win_set_cursor 0
+                     [(+ reply.linenum 1) reply.column])))))
+
+(fn element-docs [element]
+  (when (not element) (lua "return nil"))
+  (if (= element.type "Link")
+      [(.. "<" element.link_ref.url ">")]
+      element.type
+      (do
+        (print "Unknown element: " element.type)
+        (vim.split (vim.inspect element) "\n"))))
+
+(fn M.hover []
+  (content.cursor_info
+    (fn [reply]
+      (local docs (element-docs reply.element))
+      (when (and docs (> (length docs) 0))
+        (local buf (vim.api.nvim_create_buf false true))
+        (vim.api.nvim_set_option_value :filetype :djot {:buf buf})
+        (vim.api.nvim_buf_set_lines buf 0 -1 false docs)
+        (local height (length docs))
+        (var width 0)
+        (each [_ line (ipairs docs)]
+          (when (> (length line) width)
+            (set width (length line))))
+        (tset (. vim.b 0) :blog_float_win
+          (vim.api.nvim_open_win buf false
+            {:relative :cursor
+             :width width
+             :height height
+             :col 0
+             :row 1
+             :focusable false
+             :style :minimal
+             :border :none}))))))
+
+M

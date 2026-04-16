@@ -6,7 +6,4 @@
 (require :config.lsp)
 (require :config.undotree)
 
-;; Some things are in lua.
-(require :config.lua_config)
-
 (require :blog)
