@@ -8,7 +8,11 @@
     (marker:type)))
 
 (fn get-order-type [marker-type]
-  (local order-types [:decimal :lower_alpha :upper_alpha :lower_roman :upper_roman])
+  (local order-types [:decimal
+                      :lower_alpha
+                      :upper_alpha
+                      :lower_roman
+                      :upper_roman])
   (var result nil)
   (each [_ order-type (ipairs order-types) &until result]
     (when (string.find marker-type order-type)
@@ -16,9 +20,19 @@
   result)
 
 (fn to-roman [n]
-  (local numerals [[1000 "M"] [900 "CM"] [500 "D"] [400 "CD"]
-                   [100 "C"] [90 "XC"] [50 "L"] [40 "XL"]
-                   [10 "X"] [9 "IX"] [5 "V"] [4 "IV"] [1 "I"]])
+  (local numerals [[1000 "M"]
+                   [900 "CM"]
+                   [500 "D"]
+                   [400 "CD"]
+                   [100 "C"]
+                   [90 "XC"]
+                   [50 "L"]
+                   [40 "XL"]
+                   [10 "X"]
+                   [9 "IX"]
+                   [5 "V"]
+                   [4 "IV"]
+                   [1 "I"]])
   (var num n)
   (var res "")
   (each [_ pair (ipairs numerals)]
@@ -47,15 +61,54 @@
 
 (fn set-list-item-marker [list-item i order-type]
   (local marker (list-item:child 0))
-  (local (row-start col-start row-end col-end) (vim.treesitter.get_node_range marker))
+  (local (row-start col-start row-end col-end)
+         (vim.treesitter.get_node_range marker))
   ;; Skip ending `. ` or `) `
   (local col-end (- col-end 2))
-  (local marker-text
-    (. (vim.api.nvim_buf_get_text 0 row-start col-start row-end col-end {}) 1))
+  (local marker-text (. (vim.api.nvim_buf_get_text 0 row-start col-start
+                                                   row-end col-end {})
+                        1))
   (local new-marker (get-marker-replacement i order-type))
-  (local replacement (string.gsub marker-text "^(%s*%(?).-$" (.. "%1" new-marker)))
-  (vim.api.nvim_buf_set_text 0 row-start col-start row-end col-end [replacement])
+  (local replacement (string.gsub marker-text "^(%s*%(?).-$"
+                                  (.. "%1" new-marker)))
+  (vim.api.nvim_buf_set_text 0 row-start col-start row-end col-end
+                             [replacement])
   (vim.cmd :undojoin))
+
+(fn match-list-prefix [line]
+  (let [(indent prefix content) (string.match line "^(%s*)(- %[.%] )(.*)")]
+    (if prefix
+        (values indent prefix content :task)
+        (let [(indent prefix content) (string.match line "^(%s*)([-*+] )(.*)")]
+          (if prefix
+              (values indent prefix content :unordered)
+              (let [(indent prefix content)
+                    (string.match line "^(%s*)(%(?[%w]+[%.%)] )(.*)")]
+                (when prefix
+                  (values indent prefix content :ordered))))))))
+
+(fn M.continue_list []
+  (local line (vim.api.nvim_get_current_line))
+  (local (indent prefix content list-type) (match-list-prefix line))
+  (when (not prefix)
+    (local cr (vim.api.nvim_replace_termcodes "<CR>" true false true))
+    (vim.api.nvim_feedkeys cr "n" false)
+    (lua "return"))
+  (when (= content "")
+    (vim.api.nvim_set_current_line "")
+    (lua "return"))
+  (local cursor (vim.api.nvim_win_get_cursor 0))
+  (local row (. cursor 1))
+  (local col (. cursor 2))
+  (local before (string.sub line 1 col))
+  (local after (string.sub line (+ col 1)))
+  (local new-prefix (if (= list-type :task)
+                        (.. indent "- [ ] ")
+                        (.. indent prefix)))
+  (vim.api.nvim_set_current_line before)
+  (local new-line (.. new-prefix after))
+  (vim.api.nvim_buf_set_lines 0 row row false [new-line])
+  (vim.api.nvim_win_set_cursor 0 [(+ row 1) (length new-prefix)]))
 
 (fn M.reset_list_numbering []
   (local list (ts.find_node_from_cursor :list))
