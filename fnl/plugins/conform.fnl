@@ -10,16 +10,15 @@
              (bufname:match "/euronetics/schedule/")
              (bufname:match "/euronetics/vbanken/")
              (bufname:match "/code/jonashietala/templates")))
-  (local lsp? (not (vim.list_contains [:elixir :heex] ft)))
   (when (not disable?)
-    {:timeout_ms 2500 :lsp_fallback lsp?}))
+    {:timeout_ms 2500}))
 
 ; :injected (require :formatters.injected)}})
 
 {1 "https://github.com/stevearc/conform.nvim"
  :cmd ["ConformInfo"]
  :event "BufWritePre"
- :opts {:formatters_by_ft {:_ ["trim_whitespace"]
+ :opts {:formatters_by_ft {:_ {1 "trim_whitespace" :lsp_format "prefer"}
                            :fennel ["fnlfmt"]
                            :lua ["stylua"]
                            :javascript ["prettierd"]
