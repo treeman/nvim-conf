@@ -41,6 +41,7 @@
                              "css_vars"
                              "spell"
                              "calc"
+                             "conventional_commits"
                              "buffer"]
                    :providers {:blog {:name "Blog"
                                       :module :blog.blink-cmp
@@ -52,7 +53,12 @@
                                :lsp {:fallbacks ["buffer"]}
                                :css_vars {:name "css-vars"
                                           :module :css-vars.blink}
-                               :calc {:name "calc" :module "blink-calc"}}}
+                               :calc {:name "calc" :module "blink-calc"}
+                               :conventional_commits {:name "Conventional Commits"
+                                                      :module :blink-cmp-conventional-commits
+                                                      :enabled (fn []
+                                                                 (= vim.bo.filetype
+                                                                    :gitcommit))}}}
          :fuzzy {:sorts [(require :blog.sort) "score" "sort_text"]}
          :completion {:documentation {:auto_show true
                                       :draw (fn [opts]
@@ -72,4 +78,5 @@
   :dependencies [{1 "https://github.com/ribru17/blink-cmp-spell"}
                  {1 "https://github.com/jdrupal-dev/css-vars.nvim"}
                  {1 "https://github.com/joelazar/blink-calc"}
+                 {1 "https://github.com/disrupted/blink-cmp-conventional-commits"}
                  {1 "https://github.com/xzbdmw/colorful-menu.nvim" :opts {}}]}]
