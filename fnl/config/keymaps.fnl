@@ -292,20 +292,29 @@
       {:desc "Toggle conceal" :silent true})
 
 ;; Claude
-(map! :n "<leader>ac" (<Cmd> :ClaudeCode) {:desc "Toggle Claude"})
+(map! :n "<leader>ac" #(m util.claude toggle :split)
+      {:desc "Toggle Claude (split)"})
+
 (map! :n "<leader>af" (<Cmd> :ClaudeCodeFocus) {:desc "Focus Claude"})
+(map! :n "<leader>ah" #(m util.claude toggle :float)
+      {:desc "Toggle Claude (float)"})
+
+(map! :n "<C-.>" #(m util.claude toggle-last)
+      {:desc "Toggle Claude (last style)"})
+
 (map! :n "<leader>ar" (<Cmd> "ClaudeCode --resume") {:desc "Resume Claude"})
 (map! :n "<leader>aC" (<Cmd> "ClaudeCode --continue") {:desc "Continue Claude"})
-(map! :n "<leader>am" (<Cmd> "ClaudeCodeSelectModel")
-      {:desc "Select Claude model"})
+;; (map! :n "<leader>am" (<Cmd> "ClaudeCodeSelectModel")
+;;       {:desc "Select Claude model"})
 
 (map! :n "<leader>ab" (<Cmd> "ClaudeCodeAdd %")
       {:desc "Add current buffer to Claude"})
 
-(map! :v "<leader>as" (<Cmd> "ClaudeCodeSend %") {:desc "Send to Claude"})
-; (map! :v "<leader>as" (<Cmd> "ClaudeCodeTreeAdd %") {:desc "Send to Claude"})
-(map! :n "<leader>aa" (<Cmd> "ClaudeCodeDiffAccept") {:desc "Accept diff"})
-(map! :n "<leader>ad" (<Cmd> "ClaudeCodeDiffDeny") {:desc "Deny diff"})
+;; (map! :v "<leader>as" (<Cmd> "ClaudeCodeSend %") {:desc "Send to Claude"})
+
+;; ; (map! :v "<leader>as" (<Cmd> "ClaudeCodeTreeAdd %") {:desc "Send to Claude"})
+;; (map! :n "<leader>aa" (<Cmd> "ClaudeCodeDiffAccept") {:desc "Accept diff"})
+;; (map! :n "<leader>ad" (<Cmd> "ClaudeCodeDiffDeny") {:desc "Deny diff"})
 
 ; local old_gx = vim.fn.maparg("gx", "n", nil, true)
 ; map("n", "gx", require("custom.open").gx_extended(old_gx.callback), { desc = old_gx.desc })
