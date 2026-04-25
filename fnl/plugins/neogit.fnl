@@ -1,6 +1,6 @@
 {1 "https://github.com/NeogitOrg/neogit"
  :cmd :Neogit
- :opts {:kind "split_above"
+ :opts {:kind "floating"
         :graph_style "kitty"
         :auto_show_console false
         :mappings {:status {"=" "Toggle"}}
