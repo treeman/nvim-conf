@@ -18,20 +18,11 @@
                    (vim.api.nvim_win_set_cursor 0
                      [(+ reply.linenum 1) reply.column])))))
 
-(fn element-docs [element]
-  (when (not element) (lua "return nil"))
-  (if (= element.type "Link")
-      [(.. "<" element.link_ref.url ">")]
-      element.type
-      (do
-        (print "Unknown element: " element.type)
-        (vim.split (vim.inspect element) "\n"))))
-
 (fn M.hover []
   (content.cursor_info
     (fn [reply]
-      (local docs (element-docs reply.element))
-      (when (and docs (> (length docs) 0))
+      (when reply.documentation
+        (local docs (vim.split reply.documentation "\n"))
         (local buf (vim.api.nvim_create_buf false true))
         (vim.api.nvim_set_option_value :filetype :djot {:buf buf})
         (vim.api.nvim_buf_set_lines buf 0 -1 false docs)

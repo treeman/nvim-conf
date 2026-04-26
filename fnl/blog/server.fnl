@@ -35,34 +35,34 @@
         (vim.fn.chansend conn "\n"))
       (log.error "Trying to send a message without being connected")))
 
+(local pending {})
+(var next-message-id 0)
+(local call-timeout-ms 5000)
+
 (fn gen-message-id []
-  (local message-id (or vim.g.blog_message_id 0))
-  (set vim.g.blog_message_id (+ message-id 1))
-  message-id)
+  (set next-message-id (+ next-message-id 1))
+  next-message-id)
 
 (fn call [msg cb]
   (when (not (is-connected))
     (lua "return nil"))
-  (nio.run (λ []
-             ;; Create a unique message id for the call
-             (local msg-id (gen-message-id))
-             (tset msg :message_id msg-id)
-             (send-msg msg)
-             (local msg-id-s (tostring msg-id))
-             ;; Wait for response. 1 sec should be more than enough, otherwise we bail.
-             (var attempt 0)
-             (while (< attempt 100)
-               (when vim.g.blog_messages
-                 (local reply (. vim.g.blog_messages msg-id-s))
-                 (when reply
-                   (tset vim.g.blog_messages msg-id-s nil)
-                   (lua "return reply")))
-               (set attempt (+ attempt 1))
-               (nio.sleep 10))
-             ;; Response timed out
-             false) (λ [success reply]
-                                 (when (and success reply)
-                                   (cb reply)))))
+  (local msg-id (gen-message-id))
+  (tset msg :message_id msg-id)
+  (local future (nio.control.future))
+  (tset pending msg-id future)
+  (nio.run
+    (fn []
+      (send-msg msg)
+      ;; Time the request out so the future is always resolved.
+      (nio.run
+        (fn []
+          (nio.sleep call-timeout-ms)
+          (when (not (future.is_set))
+            (future.set_error "timeout"))))
+      (local (ok reply) (pcall future.wait))
+      (tset pending msg-id nil)
+      (when (and ok reply)
+        (cb reply)))))
 
 (fn cast [msg]
   (when (not (is-connected))
@@ -101,10 +101,9 @@
   (local reply (vim.fn.json_decode json-str))
   (when (not reply) (lua "return"))
   (if (. reply :message_id)
-      (let [message-id (tostring (. reply :message_id))
-            messages (or vim.g.blog_messages {})]
-        (tset messages message-id reply)
-        (set vim.g.blog_messages messages))
+      (let [future (. pending (. reply :message_id))]
+        (when (and future (not (future.is_set)))
+          (future.set reply)))
       (= reply.id "Diagnostics")
       (diagnostics.add_diagnostics reply.diagnostics)
       (log.debug "Unknown message:" (vim.inspect reply))))
