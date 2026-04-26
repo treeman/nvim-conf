@@ -14,4 +14,7 @@
     (when buf-diagnostics
       (vim.diagnostic.set (vim.api.nvim_create_namespace :blog) buf buf-diagnostics))))
 
+(fn M.clear_all []
+  (vim.diagnostic.reset (vim.api.nvim_create_namespace :blog)))
+
 M

@@ -50,6 +50,18 @@
                               :on_detach (fn [_event b]
                                            (tset attached-buffers b nil))})))
 
+;; After a (re)connect, re-establish overlays on the server for every
+;; buffer we currently track. Empty on the very first connect (no buffer
+;; has been attached yet); only does real work on reconnect.
+((. (require :blog.server) :on_connect)
+ (fn []
+   (each [bufnr _ (pairs attached-buffers)]
+     (when (vim.api.nvim_buf_is_valid bufnr)
+       (m blog.server cast
+          {:id "DidOpen"
+           :path (vim.api.nvim_buf_get_name bufnr)
+           :text (buffer-text bufnr)})))))
+
 (augroup! :blog (au! [:BufReadPost :BufNewFile] [autocmd-pattern]
                      (fn [opts]
                        (tset (. vim.b 0) :blog_file true)

@@ -43,6 +43,27 @@
   (set next-message-id (+ next-message-id 1))
   next-message-id)
 
+(fn drain-pending [reason]
+  ;; Snapshot keys first; modifying `pending` during pairs() iteration is
+  ;; undefined and `set_error` can resume waiters that touch `pending`.
+  (local ids (icollect [k _ (pairs pending)] k))
+  (each [_ id (ipairs ids)]
+    (let [future (. pending id)]
+      (tset pending id nil)
+      (when (and future (not (future.is_set)))
+        (future.set_error reason)))))
+
+;; Callbacks fired after a (re)connect succeeds. Used by autocmds to
+;; re-send DidOpen for buffers that were open before the disconnect.
+(local on-connect-callbacks [])
+
+(fn on-connect [cb]
+  (table.insert on-connect-callbacks cb))
+
+(fn fire-on-connect []
+  (each [_ cb (ipairs on-connect-callbacks)]
+    (pcall cb)))
+
 (fn call [msg cb]
   (when (not (is-connected))
     (lua "return nil"))
@@ -93,7 +114,33 @@
 (fn close-connection []
   (when (= vim.g.blog_conn nil) (lua "return"))
   (vim.fn.chanclose vim.g.blog_conn)
-  (set vim.g.blog_conn nil))
+  (set vim.g.blog_conn nil)
+  (drain-pending "disconnected")
+  ;; Stale diagnostics drift further from reality the longer we stay
+  ;; disconnected; on reconnect, DidOpen will repopulate them.
+  (diagnostics.clear_all))
+
+(var reconnecting? false)
+(local reconnect-start-delay-ms 100)
+(local reconnect-max-delay-ms 5000)
+
+;; try-connect needs to reference handle-reply (below) and handle-disconnect
+;; needs to reference try-connect — break the cycle with a var that's bound
+;; once try-connect is fully defined.
+(var try-connect-fn nil)
+
+(fn handle-disconnect []
+  (close-connection)
+  (when (not reconnecting?)
+    (set reconnecting? true)
+    (nio.run
+      (fn []
+        (var delay reconnect-start-delay-ms)
+        (while (= vim.g.blog_conn nil)
+          (nio.sleep delay)
+          (when (try-connect-fn) (lua "break"))
+          (set delay (math.min (* delay 2) reconnect-max-delay-ms)))
+        (set reconnecting? false)))))
 
 (var reply-buffer "")
 
@@ -110,7 +157,7 @@
 
 (fn handle-reply [data]
   (when (and (= (length data) 1) (= (. data 1) ""))
-    (close-connection)
+    (handle-disconnect)
     (lua "return"))
   (when (= (length data) 0)
     (log.warn "Empty data received")
@@ -139,10 +186,13 @@
   (if status
       (do
         (diagnostics.request_diagnostics_curr_buf)
+        (fire-on-connect)
         true)
       (do
         (log.debug "Connection error:" (vim.inspect err))
         false)))
+
+(set try-connect-fn try-connect)
 
 (fn establish-connection [ensure-server-started]
   (local ensure-server-started (or ensure-server-started true))
@@ -186,6 +236,7 @@
  : call
  : cast
  :blog_status blog-status
+ :on_connect on-connect
  : start
  :handle_reply handle-reply
  :try_connect try-connect
