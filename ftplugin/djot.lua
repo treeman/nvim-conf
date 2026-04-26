@@ -2,6 +2,8 @@ vim.opt_local.foldmethod = "expr"
 vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 vim.bo.commentstring = "{%%s%}"
 
+vim.treesitter.start(0)
+
 local map = vim.keymap.set
 
 -- Indent list

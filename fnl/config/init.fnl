@@ -4,6 +4,7 @@
 (require :config.keymaps)
 (require :config.colorscheme)
 (require :config.lsp)
+(require :config.treesitter)
 (require :config.undotree)
 
 (require :blog)
