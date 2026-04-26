@@ -95,7 +95,19 @@
   (vim.fn.chanclose vim.g.blog_conn)
   (set vim.g.blog_conn nil))
 
-(var reply-buffer nil)
+(var reply-buffer "")
+
+(fn process-reply [json-str]
+  (local reply (vim.fn.json_decode json-str))
+  (when (not reply) (lua "return"))
+  (if (. reply :message_id)
+      (let [message-id (tostring (. reply :message_id))
+            messages (or vim.g.blog_messages {})]
+        (tset messages message-id reply)
+        (set vim.g.blog_messages messages))
+      (= reply.id "Diagnostics")
+      (diagnostics.add_diagnostics reply.diagnostics)
+      (log.debug "Unknown message:" (vim.inspect reply))))
 
 (fn handle-reply [data]
   (when (and (= (length data) 1) (= (. data 1) ""))
@@ -104,30 +116,16 @@
   (when (= (length data) 0)
     (log.warn "Empty data received")
     (lua "return"))
-  (local last (string.sub (. data 1) -1))
-  (if (= last "\006")
-      (do
-        (local input (string.sub (. data 1) 1 -2))
-        (local all-data (if (= reply-buffer nil)
-                            input
-                            (let [result (.. reply-buffer input)]
-                              (set reply-buffer nil)
-                              result)))
-        (local reply (vim.fn.json_decode all-data))
-        (when (not reply) (lua "return"))
-        (if (. reply :message_id)
-            (let [message-id (tostring (. reply :message_id))
-                  messages (or vim.g.blog_messages {})]
-              (tset messages message-id reply)
-              (set vim.g.blog_messages messages))
-            (= reply.id "Diagnostics")
-            (diagnostics.add_diagnostics reply.diagnostics)
-            (log.debug "Unknown message:" (vim.inspect reply))))
-      (do
-        ;; We've got more data, store and handle it later
-        (if (= reply-buffer nil)
-            (set reply-buffer (. data 1))
-            (set reply-buffer (.. reply-buffer (. data 1)))))))
+  ;; `data` is the raw byte stream split on \n by Neovim's channel callback.
+  ;; Rejoin to recover bytes, then process each \n-terminated message.
+  (set reply-buffer (.. reply-buffer (table.concat data "\n")))
+  (var newline-pos (string.find reply-buffer "\n" 1 true))
+  (while newline-pos
+    (local message (string.sub reply-buffer 1 (- newline-pos 1)))
+    (set reply-buffer (string.sub reply-buffer (+ newline-pos 1)))
+    (when (not= message "")
+      (process-reply message))
+    (set newline-pos (string.find reply-buffer "\n" 1 true))))
 
 (fn try-connect []
   (when vim.g.blog_conn
